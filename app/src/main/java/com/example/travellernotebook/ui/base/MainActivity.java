@@ -1,8 +1,10 @@
-package com.example.travellernotebook;
+package com.example.travellernotebook.ui.base;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.travellernotebook.R;
 
 public class MainActivity extends AppCompatActivity {
 
