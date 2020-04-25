@@ -1,7 +1,6 @@
 package com.example.travellernotebook.data.database.dao;
 
-import com.example.travellernotebook.data.database.entities.Location;
-import com.example.travellernotebook.data.database.entities.Trip;
+import com.example.travellernotebook.data.database.entities.Locationdb;
 
 import java.util.List;
 
@@ -15,14 +14,14 @@ import androidx.room.Query;
 public interface LocationDao {
 
     @Query("SELECT * FROM location")
-    List<Location> getAll();
+    List<Locationdb> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Location mLocation);
+    void insert(Locationdb mLocation);
 
     @Query("SELECT * FROM location WHERE dbid = :locationId")
-    Location getRecord(String locationId);
+    Locationdb getRecord(String locationId);
 
     @Delete
-    void delete(Location mLocation);
+    void delete(Locationdb mLocation);
 }

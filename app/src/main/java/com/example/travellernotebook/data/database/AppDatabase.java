@@ -7,16 +7,16 @@ import com.example.travellernotebook.data.database.dao.LocationDao;
 import com.example.travellernotebook.data.database.dao.MediaDao;
 import com.example.travellernotebook.data.database.dao.QuoteDao;
 import com.example.travellernotebook.data.database.dao.TripDao;
-import com.example.travellernotebook.data.database.entities.Activity;
-import com.example.travellernotebook.data.database.entities.Location;
-import com.example.travellernotebook.data.database.entities.Media;
-import com.example.travellernotebook.data.database.entities.Quote;
-import com.example.travellernotebook.data.database.entities.Trip;
+import com.example.travellernotebook.data.database.entities.Activitydb;
+import com.example.travellernotebook.data.database.entities.Locationdb;
+import com.example.travellernotebook.data.database.entities.Mediadb;
+import com.example.travellernotebook.data.database.entities.Quotedb;
+import com.example.travellernotebook.data.database.entities.Tripdb;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Trip.class,Activity.class, Location.class, Quote.class, Media.class}, version = 1)
+@Database(entities = {Tripdb.class, Activitydb.class, Locationdb.class, Quotedb.class, Mediadb.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract TripDao tripDao();
     public abstract LocationDao locationDao();

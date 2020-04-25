@@ -4,12 +4,12 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "activity")
-public class Activity {
+@Entity(tableName = "qoute")
+public class Quotedb {
     @PrimaryKey(autoGenerate = true)
     public int dbid;
-    @ColumnInfo(name = "activity_name")
-    public String activityName;
-    @ColumnInfo(name = "location_id")
+    @ColumnInfo(name = "qoute_text")
+    public String qoute;
+    @ColumnInfo(name = "activity_id")
     public int parent;
 }

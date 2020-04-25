@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">TravellerNoteBook</string>
+    <string name="txt_save">Save</string>
+    <string name="txt_password">Password</string>
+    <string name="txt_phone">Phone</string>
+    <string name="txt_email">Email</string>
+    <string name="txt_user_name">User Name</string>
+
+    <string name="txt_name">Name</string>
+    <string name="txt_add_location">Add Location</string>
+    <string name="txt_start_date">Start Date</string>
+    <string name="txt_date">Date</string>
+    <string name="txt_end_date">End Date</string>
+    <string name="txt_budget">Budget</string>
+    <string name="txt_profile">Profile</string>
+    <string name="txt_shared_trips">Shared trips</string>
+    <string name="txt_from">From</string>
+    <string name="txt_to">To</string>
+
+    <string name="txt_add_new_activity">Add new activity .....</string>
+
+    <string name="txt_total">Total</string>
 </resources>

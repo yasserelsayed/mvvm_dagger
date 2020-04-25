@@ -5,7 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "trip")
-public class Trip {
+public class Tripdb {
     @PrimaryKey(autoGenerate = true)
     public int dbid;
     @ColumnInfo(name = "backend_id")

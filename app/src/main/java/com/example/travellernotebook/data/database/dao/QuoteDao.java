@@ -1,8 +1,6 @@
 package com.example.travellernotebook.data.database.dao;
 
-import com.example.travellernotebook.data.database.entities.Activity;
-import com.example.travellernotebook.data.database.entities.Quote;
-import com.example.travellernotebook.data.database.entities.Trip;
+import com.example.travellernotebook.data.database.entities.Quotedb;
 
 import java.util.List;
 
@@ -16,14 +14,14 @@ import androidx.room.Query;
 public interface QuoteDao {
 
     @Query("SELECT * FROM qoute")
-    List<Quote> getAll();
+    List<Quotedb> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Quote mQuote);
+    void insert(Quotedb mQuote);
 
-    @Query("SELECT * FROM QOUTE WHERE dbid = :quoteId")
-    Quote getRecord(String quoteId);
+    @Query("SELECT * FROM qoute WHERE dbid = :quoteId")
+    Quotedb getRecord(String quoteId);
 
     @Delete
-    void delete(Quote mQuote);
+    void delete(Quotedb mQuote);
 }

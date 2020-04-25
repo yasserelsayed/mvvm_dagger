@@ -5,7 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "location")
-public class Location {
+public class Locationdb {
     @PrimaryKey(autoGenerate = true)
     public int dbid;
     @ColumnInfo(name = "location_name")

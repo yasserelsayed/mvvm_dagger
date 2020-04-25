@@ -1,6 +1,6 @@
 package com.example.travellernotebook.data.database.dao;
 
-import com.example.travellernotebook.data.database.entities.Trip;
+import com.example.travellernotebook.data.database.entities.Tripdb;
 
 import java.util.List;
 
@@ -14,14 +14,14 @@ import androidx.room.Query;
 public interface TripDao {
 
     @Query("SELECT * FROM trip")
-    List<Trip> getAll();
+    List<Tripdb> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Trip mTrip);
+    void insert(Tripdb mTrip);
 
     @Query("SELECT * FROM trip WHERE dbid = :tripId")
-    Trip getRecord(String tripId);
+    Tripdb getRecord(String tripId);
 
     @Delete
-    void delete(Trip mTrip);
+    void delete(Tripdb mTrip);
 }

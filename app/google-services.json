@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "952742582719",
+    "firebase_url": "https://travellernotebook-fa783.firebaseio.com",
+    "project_id": "travellernotebook-fa783",
+    "storage_bucket": "travellernotebook-fa783.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:952742582719:android:30f2de0a65e798496ba90a",
+        "android_client_info": {
+          "package_name": "com.example.travellernotebook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "952742582719-9gqiqrkf66db360i37mbsm7dbpv0vnqv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk3S9c6ZngwJUWGVKexHs4yKXQrvxORTg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "952742582719-9gqiqrkf66db360i37mbsm7dbpv0vnqv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

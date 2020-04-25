@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "Media")
-public class Media {
+@Entity(tableName = "media")
+public class Mediadb {
     @PrimaryKey(autoGenerate = true)
     public int dbid;
     @ColumnInfo(name = "path")
