@@ -12,15 +12,11 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public PagerAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
-    TripsListFrgment mTripsListFrgment;
+
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        if(mTripsListFrgment == null)
-            mTripsListFrgment = new TripsListFrgment();
-        if(position==0)
         return new TripsListFrgment();
-        else return new ProfileFrgment();
     }
 
 

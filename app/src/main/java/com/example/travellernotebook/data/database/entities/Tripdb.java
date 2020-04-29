@@ -22,4 +22,6 @@ public class Tripdb {
     public String endDate;
     @ColumnInfo(name = "budget")
     public String budget;
+    @ColumnInfo(name = "main_photo")
+    public String mainPhoto;
 }

@@ -8,7 +8,7 @@
     android:padding="@dimen/default_padding">
 
     <ImageView
-        android:id="@+id/imgTripName"
+        android:id="@+id/imgTripMainPic"
         android:layout_width="@dimen/image_size_small"
         android:layout_height="@dimen/image_size_small"
         android:background="@drawable/button_background"
@@ -24,7 +24,7 @@
         android:text=" "
         android:textColor="@color/colorPrimary"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/imgTripName"
+        app:layout_constraintStart_toEndOf="@+id/imgTripMainPic"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:text="@string/txt_to"
         android:textColor="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="@+id/imgTripName"
+        app:layout_constraintBottom_toBottomOf="@+id/imgTripMainPic"
         app:layout_constraintStart_toStartOf="@+id/txtTripName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

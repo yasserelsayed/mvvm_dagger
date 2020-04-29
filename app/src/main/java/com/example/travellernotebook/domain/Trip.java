@@ -3,6 +3,7 @@ package com.example.travellernotebook.domain;
 import com.example.travellernotebook.data.database.entities.Tripdb;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,7 +17,15 @@ public class Trip implements Serializable {
         this.tripName = mTripdb.tripName;
         this.latitude = Double.parseDouble(mTripdb.latitude);
         this.longitude = Double.parseDouble(mTripdb.longitude);
+        try {
+            this.mSimpleDateFormat= new SimpleDateFormat("dd/MM/yyyy");
+            this.startDate = mSimpleDateFormat.parse(mTripdb.startDate);
+            this.endDate = mSimpleDateFormat.parse(mTripdb.endDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         this.budget = Double.parseDouble(mTripdb.budget);
+        this.mainPhoto = mTripdb.mainPhoto;
     }
 
     public Trip(){
@@ -34,13 +43,21 @@ public class Trip implements Serializable {
         mTripdb.tripName = this.tripName;
         mTripdb.latitude = this.latitude.toString();
         mTripdb.longitude = this.longitude.toString();
-        mTripdb.startDate = this.startDate.toString();
-        mTripdb.endDate = this.endDate.toString();
+        mTripdb.startDate = this.getStartDate();
+        mTripdb.endDate = this.getEndDate();
         mTripdb.budget = this.budget.toString();
+        mTripdb.mainPhoto = this.mainPhoto;
 
         return mTripdb;
     }
 
+    public String getMainPhoto() {
+        return mainPhoto;
+    }
+
+    public void setMainPhoto(String mainPhoto) {
+        this.mainPhoto = mainPhoto;
+    }
 
     int id;
     String backendID;
@@ -50,6 +67,16 @@ public class Trip implements Serializable {
     Date startDate;
     Date endDate;
     Double budget;
+    String locationName;
+    String mainPhoto;
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
+    }
+
+    public String getLocationName() {
+        return locationName;
+    }
 
     public int getId() {
         return id;

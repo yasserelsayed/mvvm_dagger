@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.Group;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -12,54 +14,40 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.di.components.AppComponent;
 import com.example.travellernotebook.domain.App;
-import com.example.travellernotebook.ui.base.views.PagerAdapter;
 import com.example.travellernotebook.ui.profile.views.ProfileFrgment;
+import com.example.travellernotebook.ui.trip.views.HomeFrgment;
 import com.example.travellernotebook.ui.trip.views.TripFrgment;
-import com.example.travellernotebook.ui.trip.views.TripsListFrgment;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
 
 
 public class MainActivity extends AppCompatActivity {
-    @BindView(R.id.group)
-    Group mGroup;
-    @BindView(R.id.pager)
-    ViewPager pager;
-    @BindView(R.id.scrnTabs)
-    TabLayout scrnTabs;
     @BindView(R.id.btnAdd)
-    FloatingActionButton btnAdd;
-
-   public AppComponent mAppComponent;
-
-
-    Unbinder unbinder;
+    public FloatingActionButton btnAdd;
+    public PlacesClient mPlacesClient;
+    public AppComponent mAppComponent;
     FragmentManager mFragmentManager;
+    Unbinder unbinder;
+    Fragment CurrentFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
-        mGroup.setVisibility(View.VISIBLE);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(myToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        mPlacesClient = Places.createClient(this);
         mFragmentManager = getSupportFragmentManager();
-        PagerAdapter mPagerAdapter = new PagerAdapter(mFragmentManager);
-        pager.setAdapter(mPagerAdapter);
-        scrnTabs.setupWithViewPager(pager);
         mAppComponent = ((App)getApplication()).getAppComponent();
+        transitionToFragment(new HomeFrgment());
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,12 +98,27 @@ public class MainActivity extends AppCompatActivity {
 
     public void transitionToFragment(Fragment mFragment)
     {
-        mGroup.setVisibility(View.GONE);
+        CurrentFragment = mFragment;
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.replace(R.id.frmFragmentContainer,mFragment);
         mFragmentTransaction.addToBackStack(null);
         mFragmentTransaction.commit();
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        CurrentFragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    public void CheckPermission(int requestCode, @NonNull String[] permissions, Fragment _Fragment)
+    {
+        int result = ContextCompat.checkSelfPermission(this,permissions[0]);
+        if (result != PackageManager.PERMISSION_GRANTED)
+            ActivityCompat.requestPermissions(this, permissions, requestCode);
+        else CurrentFragment.onRequestPermissionsResult(requestCode, permissions, new int[]{result});
+     }
+
 
 
 }

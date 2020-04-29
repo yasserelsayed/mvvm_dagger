@@ -1,6 +1,11 @@
 package com.example.travellernotebook.ui.trip.views;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,23 +13,30 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.Trip;
 import com.example.travellernotebook.ui.base.MainActivity;
+import com.example.travellernotebook.ui.base.views.LocationPickerFragment;
 import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
 import com.example.travellernotebook.ui.trip.viewModels.TripViewModel;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Calendar;
-import java.util.Date;
-
 import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.app.Activity.RESULT_OK;
 
 public class TripFrgment extends Fragment implements    View.OnClickListener{
 
@@ -45,11 +57,51 @@ public class TripFrgment extends Fragment implements    View.OnClickListener{
     EditText edtBudget;
     @BindView(R.id.btnSubmit)
     Button btnSubmit;
+    @BindView(R.id.imgTripMain)
+    ImageView imgTripMain;
+
+    MainActivity mMainActivity;
+    public TripFrgment()
+    {
+        mTrip = new Trip();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 11 && resultCode == RESULT_OK && null != data) {
+             Uri imageUri = data.getData();
+            try {
+                mTrip.setMainPhoto(imageUri.toString());
+                InputStream imageStream  = mMainActivity.getContentResolver().openInputStream(imageUri);
+                final Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+                RoundedBitmapDrawable roundedBitmapDrawable= RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+                roundedBitmapDrawable.setCircular(true);
+                roundedBitmapDrawable.setAntiAlias(true);
+                imgTripMain.setImageDrawable(roundedBitmapDrawable);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            }
+    }
+
 
     DatePickerDialog startDatePicker;
     DatePickerDialog endDatePicker;
     Trip mTrip;
 
+
+    @SuppressLint("RestrictedApi")
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMainActivity.btnAdd.setVisibility(View.GONE);
+        if(mTrip.getLocationName()!=null)
+            txtLocation.setText(mTrip.getLocationName());
+
+    }
 
     @Nullable
     @Override
@@ -58,10 +110,9 @@ public class TripFrgment extends Fragment implements    View.OnClickListener{
          View mView = inflater.inflate(R.layout.fragment_trip,container,false);
          ButterKnife.bind(this,mView);
          mCalendar = Calendar.getInstance();
-         ((MainActivity) getActivity()).mAppComponent.inject(this);
+          mMainActivity = ((MainActivity) getActivity());
+          mMainActivity.mAppComponent.inject(this);
           mTripViewModel = new ViewModelProvider(this,mTripViewModelsFactory).get(TripViewModel.class);
-          mTrip = new Trip();
-//        mTripViewModel.addTrip(mTrip);
 
         int month = mCalendar.get(Calendar.MONTH);
         int day = mCalendar.get(Calendar.DAY_OF_MONTH);
@@ -87,7 +138,9 @@ public class TripFrgment extends Fragment implements    View.OnClickListener{
         txtStartDate.setOnClickListener(this);
         txtEndDate.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
-        return mView;
+        imgTripMain.setOnClickListener(this);
+        txtLocation.setOnClickListener(this);
+    return mView;
     }
 
     @Override
@@ -99,8 +152,44 @@ public class TripFrgment extends Fragment implements    View.OnClickListener{
             } case R.id.txtEndDate:{
                 endDatePicker.show();
                 break;
+            } case R.id.imgTripMain:{
+                Intent mIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(mIntent, 11);
+                break;
+            }case R.id.txtLocation:{
+                mMainActivity.transitionToFragment(new LocationPickerFragment(mTrip));
+                break;
+            }case R.id.btnSubmit:{
+                    if(validate()){
+                        mTrip.setTripName(edtTripName.getText().toString());
+                        if(edtBudget.getText().toString()==null || edtBudget.getText().toString().isEmpty())
+                              mTrip.setBudget(0.0);
+                        else  mTrip.setBudget(Double.parseDouble(edtBudget.getText().toString()));
+                        mTripViewModel.addTrip(mTrip);
+                        mMainActivity.onBackPressed();
+                    }
+                break;
             }
         }
+    }
 
+    private boolean validate(){
+        boolean res = true;
+        String tripName = edtTripName.getText().toString();
+        String locationName = txtLocation.getText().toString();
+
+        if(tripName==null || tripName.isEmpty()) {
+            edtTripName.setError(getString(R.string.msg_this_field_required));
+            edtTripName.requestFocus();
+            res = false;
+        }
+
+        if(mTrip.getLocationName()==null || mTrip.getLocationName().isEmpty()) {
+            txtLocation.setError(getString(R.string.msg_this_field_required));
+            edtTripName.requestFocus();
+            res = false;
+        }
+
+        return res;
     }
 }
