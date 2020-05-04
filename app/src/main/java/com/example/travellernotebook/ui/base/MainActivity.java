@@ -2,15 +2,11 @@ package com.example.travellernotebook.ui.base;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.Group;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -19,21 +15,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.di.components.AppComponent;
 import com.example.travellernotebook.domain.App;
 import com.example.travellernotebook.ui.profile.views.ProfileFrgment;
 import com.example.travellernotebook.ui.trip.views.HomeFrgment;
-import com.example.travellernotebook.ui.trip.views.TripFrgment;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class MainActivity extends AppCompatActivity {
-    @BindView(R.id.btnAdd)
-    public FloatingActionButton btnAdd;
+
     public PlacesClient mPlacesClient;
     public AppComponent mAppComponent;
     FragmentManager mFragmentManager;
@@ -48,12 +40,6 @@ public class MainActivity extends AppCompatActivity {
         mFragmentManager = getSupportFragmentManager();
         mAppComponent = ((App)getApplication()).getAppComponent();
         transitionToFragment(new HomeFrgment());
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                transitionToFragment(new TripFrgment());
-            }
-        });
 //        FirebaseFirestore mFirebaseFirestore = FirebaseFirestore.getInstance();
 //        Map<String, Object> user = new HashMap<>();
 //        user.put("first", "Ada");

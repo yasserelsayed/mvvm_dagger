@@ -16,10 +16,10 @@ public class Locationdb {
     public String longitude;
     @ColumnInfo(name = "start_date")
     public String startDate;
-    @ColumnInfo(name = "end_date")
-    public String endDate;
     @ColumnInfo(name = "budget")
     public String budget;
+    @ColumnInfo(name = "main_photo")
+    public String mainPhoto;
 
     @ColumnInfo(name = "trip_id")
     public int parent;

@@ -1,6 +1,7 @@
 package com.example.travellernotebook.ui.trip;
 
 import com.example.travellernotebook.data.TripRepository;
+import com.example.travellernotebook.ui.trip.viewModels.LocationViewModel;
 import com.example.travellernotebook.ui.trip.viewModels.TripViewModel;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,8 @@ public class TripViewModelsFactory implements ViewModelProvider.Factory {
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.equals(TripViewModel.class)) {
             return (T) new TripViewModel(mTripRepository);
+        }else if(modelClass.equals(LocationViewModel.class)) {
+            return (T) new LocationViewModel(mTripRepository);
         }else return null;
     }
 }

@@ -11,6 +11,7 @@ public class Trip implements Serializable {
 
     SimpleDateFormat mSimpleDateFormat;
     Date mDate;
+    Date mToday;
     public Trip(Tripdb mTripdb){
         this.id = mTripdb.dbid;
         this.backendID = mTripdb.backendID;
@@ -26,6 +27,8 @@ public class Trip implements Serializable {
         }
         this.budget = Double.parseDouble(mTripdb.budget);
         this.mainPhoto = mTripdb.mainPhoto;
+
+        mToday = new Date();
     }
 
     public Trip(){
@@ -140,5 +143,11 @@ public class Trip implements Serializable {
 
     public void setBudget(Double budget) {
         this.budget = budget;
+    }
+
+    public boolean isUpcoming(){
+        if (startDate!=null && mToday.compareTo(startDate) > 0)
+            return false;
+        return true;
     }
 }

@@ -1,6 +1,5 @@
 package com.example.travellernotebook.ui.trip.views;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -11,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.travellernotebook.R;
-import com.example.travellernotebook.domain.Trip;
+import com.example.travellernotebook.domain.TripLocation;
 import com.example.travellernotebook.ui.base.MainActivity;
 
 import java.io.FileNotFoundException;
@@ -22,56 +21,42 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.AdapterHolder> {
+public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.AdapterHolder> {
 
 
-    List<Trip> Datasource;
+    List<TripLocation> Datasource;
     MainActivity mMainActivity;
-    int archived = 0;
-    int upcoming = 1;
 
-    public TripsAdapter(List<Trip> datasource) {
+    public LocationsAdapter(List<TripLocation> datasource) {
         Datasource = datasource;
     }
 
-    @Override
-    public int getItemViewType(int position) {
-         super.getItemViewType(position);
-         Trip mTrip = Datasource.get(position);
-         if(mTrip.isUpcoming())
-             return  upcoming;
-         else return archived;
-    }
 
     @NonNull
     @Override
     public AdapterHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       View mView = null;
-       if(viewType==upcoming)
-              mView =  LayoutInflater.from(parent.getContext()).inflate(R.layout.trip_upcoming_item,parent,false);
-       else   mView =  LayoutInflater.from(parent.getContext()).inflate(R.layout.trip_item,parent,false);
+       View mView =  LayoutInflater.from(parent.getContext()).inflate(R.layout.location_item,parent,false);
         mMainActivity = (MainActivity) parent.getContext();
         return new AdapterHolder(mView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AdapterHolder holder, int position) {
-       Trip mTrip = Datasource.get(position);
-        holder.txtTripName.setText(mTrip.getTripName());
-        holder.txtBudget.setText(mTrip.getBudget().toString() + " $");
-        holder.txtFrom.setText(mTrip.getStartDate());
-        holder.txtTo.setText(mTrip.getEndDate());
+        TripLocation mTripLocationp = Datasource.get(position);
+        holder.txtLocationName.setText(mTripLocationp.getLocationName());
+        holder.txtBudget.setText(mTripLocationp.getBudget().toString() + " $");
+        holder.txtDate.setText(mTripLocationp.getStartDate());
         holder.constContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMainActivity.transitionToFragment(new LocationsHomeFrgment());
+               // mMainActivity.transitionToFragment(new LocationsHomeFrgment());
             }
         });
-        if(mTrip.getMainPhoto()!=null) {
+        if(mTripLocationp.getMainPhoto()!=null) {
             try {
-                InputStream imageStream  = mMainActivity.getContentResolver().openInputStream(Uri.parse(mTrip.getMainPhoto()));
+                InputStream imageStream  = mMainActivity.getContentResolver().openInputStream(Uri.parse(mTripLocationp.getMainPhoto()));
                 Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
-                holder.imgTripMainPic.setImageBitmap(bitmap);
+                holder.imgLocationMain.setImageBitmap(bitmap);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -84,19 +69,17 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.AdapterHolde
     }
 
     public class AdapterHolder extends  RecyclerView.ViewHolder{
-       TextView txtTripName;
+       TextView txtLocationName;
        TextView txtBudget;
-       TextView txtFrom;
-       TextView txtTo;
-       ImageView imgTripMainPic;
+       TextView txtDate;
+       ImageView imgLocationMain;
        ConstraintLayout constContainer;
      public AdapterHolder(@NonNull View itemView) {
          super(itemView);
-         txtTripName = (TextView)itemView.findViewById(R.id.txtTripName);
+         txtLocationName = (TextView)itemView.findViewById(R.id.txtLocationName);
          txtBudget = (TextView)itemView.findViewById(R.id.txtBudget);
-         txtFrom = (TextView)itemView.findViewById(R.id.txtFrom);
-         txtTo= (TextView)itemView.findViewById(R.id.txtTo);
-         imgTripMainPic = (ImageView) itemView.findViewById(R.id.imgTripMainPic);
+         txtDate = (TextView)itemView.findViewById(R.id.txtDate);
+         imgLocationMain = (ImageView) itemView.findViewById(R.id.imgLocationMain);
          constContainer = (ConstraintLayout)itemView.findViewById(R.id.constContainer);
      }
  }

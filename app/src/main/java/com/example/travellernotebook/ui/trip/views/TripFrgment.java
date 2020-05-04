@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,9 +98,21 @@ public class TripFrgment extends Fragment implements    View.OnClickListener{
     @Override
     public void onResume() {
         super.onResume();
-        mMainActivity.btnAdd.setVisibility(View.GONE);
         if(mTrip.getLocationName()!=null)
             txtLocation.setText(mTrip.getLocationName());
+
+        if(mTrip.getMainPhoto()!=null && !mTrip.getMainPhoto().isEmpty()){
+            try {
+                InputStream imageStream  = mMainActivity.getContentResolver().openInputStream(Uri.parse(mTrip.getMainPhoto()));
+                Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+                RoundedBitmapDrawable roundedBitmapDrawable= RoundedBitmapDrawableFactory.create(getResources(), bitmap);
+                roundedBitmapDrawable.setCircular(true);
+                roundedBitmapDrawable.setAntiAlias(true);
+                imgTripMain.setImageDrawable(roundedBitmapDrawable);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -153,7 +166,10 @@ public class TripFrgment extends Fragment implements    View.OnClickListener{
                 endDatePicker.show();
                 break;
             } case R.id.imgTripMain:{
-                Intent mIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                String action;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) action = Intent.ACTION_OPEN_DOCUMENT;
+                else action = Intent.ACTION_PICK;
+                Intent mIntent = new Intent(action,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(mIntent, 11);
                 break;
             }case R.id.txtLocation:{

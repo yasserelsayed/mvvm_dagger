@@ -38,7 +38,9 @@ public class AppModule {
     @Provides
     @Singleton
     public AppDatabase provideAppDatabase(Context mContext) {
-       return Room.databaseBuilder(mContext,AppDatabase.class, "database-notebook").build();
+       return Room.databaseBuilder(mContext,AppDatabase.class, "database-notebook")
+               .fallbackToDestructiveMigration()
+               .build();
     }
 
     @Provides

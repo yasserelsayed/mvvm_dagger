@@ -144,7 +144,6 @@ public class LocationPickerFragment extends Fragment  implements OnMapReadyCallb
     @Override
     public void onResume() {
         super.onResume();
-        mMainActivity.btnAdd.setVisibility(View.GONE);
     }
 
     private BitmapDescriptor getMarkerIconFromDrawable(Drawable drawable) {

@@ -4,8 +4,10 @@ import android.os.AsyncTask;
 import android.widget.LinearLayout;
 
 import com.example.travellernotebook.data.database.AppDatabase;
+import com.example.travellernotebook.data.database.entities.Locationdb;
 import com.example.travellernotebook.data.database.entities.Tripdb;
 import com.example.travellernotebook.domain.Trip;
+import com.example.travellernotebook.domain.TripLocation;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import androidx.lifecycle.MutableLiveData;
 public class TripRepository {
 
     MutableLiveData<List<Trip>> Datasource;
+    MutableLiveData<List<TripLocation>> LocationsDatasource;
 
     private AppDatabase mAppDatabase;
     private FirebaseFirestore mFirebaseFirestore;
@@ -24,6 +27,7 @@ public class TripRepository {
         this.mAppDatabase = mAppDatabase;
         this.mFirebaseFirestore = mFirebaseFirestore;
         Datasource = new MutableLiveData<>();
+        LocationsDatasource = new MutableLiveData<>();
     }
 
     public void addTrip(Trip mTrip){
@@ -54,5 +58,35 @@ public class TripRepository {
         }.execute();
 
         return Datasource;
+    }
+
+    public void addLocation(TripLocation mTripLocation){
+        new AsyncTask<Void,Void,Void>(){
+            @Override
+            protected Void doInBackground(Void... voids) {
+                mAppDatabase.locationDao().insert(mTripLocation.getRow());
+                return null;
+            }
+        }.execute();
+    }
+
+    public LiveData<List<TripLocation>> getAllLocations(){
+        List<TripLocation> lstTripLocations = new ArrayList<>();
+        new AsyncTask<Void,Void,List<Locationdb>>(){
+            @Override
+            protected List<Locationdb> doInBackground(Void... voids) {
+                return  mAppDatabase.locationDao().getAll();
+            }
+
+            @Override
+            protected void onPostExecute(List<Locationdb> locations) {
+                super.onPostExecute(locations);
+                for(Locationdb mLocationdb :locations)
+                    lstTripLocations.add(new TripLocation(mLocationdb));
+                LocationsDatasource.setValue(lstTripLocations);
+            }
+        }.execute();
+
+        return LocationsDatasource;
     }
 }

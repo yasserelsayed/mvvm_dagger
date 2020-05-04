@@ -18,7 +18,7 @@
     <string name="txt_to">To</string>
     <string name="txt_add_new_activity">Add new activity .....</string>
     <string name="txt_total">Total</string>
-
+    <string name="txt_upcoming">Upcoming</string>
     <string name="msg_this_field_required">this field required</string>
 
     <string name="maps_api_key">AIzaSyCfAiZPLV5twQ8NE-tfRtIQIozOLqjZmnE</string>
