@@ -1,5 +1,7 @@
 package com.example.travellernotebook.ui.trip.viewModels;
 
+import android.location.Location;
+
 import com.example.travellernotebook.data.TripRepository;
 import com.example.travellernotebook.domain.TripLocation;
 
@@ -15,13 +17,16 @@ public class LocationViewModel extends ViewModel {
         this.mTripRepository = mTripRepository;
     }
 
+    public void removeTripLocation(TripLocation mTripLocation){
+        mTripRepository.removeTripLocation(mTripLocation);
+    }
 
     public void addTripLocation(TripLocation mTripLocation){
         mTripRepository.addLocation(mTripLocation);
     }
 
-    public LiveData<List<TripLocation>> getAllLocations(){
-        return mTripRepository.getAllLocations();
+    public LiveData<List<TripLocation>> getAllLocations(int tripId){
+        return mTripRepository.getAllLocations(tripId);
     }
 
 

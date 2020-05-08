@@ -49,7 +49,8 @@ public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.Adap
         holder.constContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // mMainActivity.transitionToFragment(new LocationsHomeFrgment());
+                mMainActivity.activeTripLocation = mTripLocationp;
+                mMainActivity.transitionToFragment(new LocationActivitiesFrgment());
             }
         });
         if(mTripLocationp.getMainPhoto()!=null) {

@@ -13,6 +13,8 @@
     <string name="txt_end_date">End Date</string>
     <string name="txt_budget">Budget</string>
     <string name="txt_profile">Profile</string>
+    <string name="txt_remove">Remove</string>
+    <string name="txt_add_quote">Add quote</string>
     <string name="txt_shared_trips">Shared trips</string>
     <string name="txt_from">From</string>
     <string name="txt_to">To</string>
@@ -20,6 +22,7 @@
     <string name="txt_total">Total</string>
     <string name="txt_upcoming">Upcoming</string>
     <string name="msg_this_field_required">this field required</string>
+    <string name="txt_location_activities">Location Activities</string>
 
     <string name="maps_api_key">AIzaSyCfAiZPLV5twQ8NE-tfRtIQIozOLqjZmnE</string>
 </resources>

@@ -9,11 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.travellernotebook.R;
-import com.example.travellernotebook.domain.Trip;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.base.views.PagerAdapter;
-import com.example.travellernotebook.ui.profile.views.ProfileFrgment;
 import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
+import com.example.travellernotebook.ui.trip.viewModels.ActivityViewModel;
 import com.example.travellernotebook.ui.trip.viewModels.LocationViewModel;
 import com.example.travellernotebook.ui.trip.viewModels.TripViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -28,13 +27,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LocationsHomeFrgment extends Fragment{
+public class LocationActivitiesFrgment extends Fragment{
 
     MainActivity mMainActivity;
     @BindView(R.id.pager)
@@ -45,8 +43,7 @@ public class LocationsHomeFrgment extends Fragment{
     FloatingActionButton btnAdd;
     @Inject
     TripViewModelsFactory mTripViewModelsFactory;
-    TripViewModel mTripViewModel;
-
+    LocationViewModel mLocationViewModel;
 
 
     @Nullable
@@ -61,20 +58,18 @@ public class LocationsHomeFrgment extends Fragment{
         mMainActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mMainActivity.getSupportActionBar().setDisplayShowHomeEnabled(true);
         mMainActivity.mAppComponent.inject(this);
-        mTripViewModel = new ViewModelProvider(mMainActivity,mTripViewModelsFactory).get(TripViewModel.class);
+        mLocationViewModel = new ViewModelProvider(mMainActivity,mTripViewModelsFactory).get(LocationViewModel.class);
         List<Fragment> lst = new ArrayList<>();
-        lst.add(new LocationsListFrgment());
-        lst.add(new LocationsMapFrgment());
+        lst.add(new ActivitiesListFrgment());
         setHasOptionsMenu(true);
         PagerAdapter mPagerAdapter = new PagerAdapter(getChildFragmentManager(),lst);
         pager.setAdapter(mPagerAdapter);
         scrnTabs.setupWithViewPager(pager);
-        if(mMainActivity.activeTrip!=null)
-        mToolbar.setTitle(mMainActivity.activeTrip.getTripName());
+        mToolbar.setTitle(getString(R.string.txt_location_activities));
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMainActivity.transitionToFragment(new LocationFrgment());
+                mMainActivity.transitionToFragment(new ActivityFrgment());
             }
         });
     return mView;
@@ -90,8 +85,8 @@ public class LocationsHomeFrgment extends Fragment{
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.mnuRemove: {
-                if (mMainActivity.activeTrip != null)
-                    mTripViewModel.removeTrip(mMainActivity.activeTrip);
+                if (mMainActivity.activeTripLocation != null)
+                    mLocationViewModel.removeTripLocation(mMainActivity.activeTripLocation);
                 mMainActivity.onBackPressed();
                 return true;
             }

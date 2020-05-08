@@ -10,6 +10,6 @@ public class Quotedb {
     public int dbid;
     @ColumnInfo(name = "qoute_text")
     public String qoute;
-    @ColumnInfo(name = "activity_id")
+    @ColumnInfo(name = "location_id")
     public int parent;
 }

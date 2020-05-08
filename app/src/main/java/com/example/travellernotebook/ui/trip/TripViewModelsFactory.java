@@ -1,6 +1,7 @@
 package com.example.travellernotebook.ui.trip;
 
 import com.example.travellernotebook.data.TripRepository;
+import com.example.travellernotebook.ui.trip.viewModels.ActivityViewModel;
 import com.example.travellernotebook.ui.trip.viewModels.LocationViewModel;
 import com.example.travellernotebook.ui.trip.viewModels.TripViewModel;
 
@@ -22,6 +23,8 @@ public class TripViewModelsFactory implements ViewModelProvider.Factory {
             return (T) new TripViewModel(mTripRepository);
         }else if(modelClass.equals(LocationViewModel.class)) {
             return (T) new LocationViewModel(mTripRepository);
+        }else if(modelClass.equals(ActivityViewModel.class)) {
+            return (T) new ActivityViewModel(mTripRepository);
         }else return null;
     }
 }

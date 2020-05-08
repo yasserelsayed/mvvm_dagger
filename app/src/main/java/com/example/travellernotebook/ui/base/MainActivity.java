@@ -12,13 +12,12 @@ import butterknife.Unbinder;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.di.components.AppComponent;
+import com.example.travellernotebook.domain.Activity;
 import com.example.travellernotebook.domain.App;
-import com.example.travellernotebook.ui.profile.views.ProfileFrgment;
+import com.example.travellernotebook.domain.Trip;
+import com.example.travellernotebook.domain.TripLocation;
 import com.example.travellernotebook.ui.trip.views.HomeFrgment;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
@@ -31,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     FragmentManager mFragmentManager;
     Unbinder unbinder;
     Fragment CurrentFragment;
+    public Trip activeTrip;
+    public TripLocation activeTripLocation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,24 +62,6 @@ public class MainActivity extends AppCompatActivity {
 //                        Log.w("", "Error adding document", e);
 //                    }
 //                });
-
-    }
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.mnuProfile:
-                transitionToFragment(new ProfileFrgment());
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
 
     }
 

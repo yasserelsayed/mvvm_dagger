@@ -7,12 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.travellernotebook.R;
-import com.example.travellernotebook.domain.Trip;
+import com.example.travellernotebook.domain.Activity;
 import com.example.travellernotebook.domain.TripLocation;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
+import com.example.travellernotebook.ui.trip.viewModels.ActivityViewModel;
 import com.example.travellernotebook.ui.trip.viewModels.LocationViewModel;
-import com.example.travellernotebook.ui.trip.viewModels.TripViewModel;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LocationsListFrgment extends Fragment {
+public class ActivitiesListFrgment extends Fragment {
 
     @Inject
     TripViewModelsFactory mTripViewModelsFactory;
@@ -51,14 +51,14 @@ public class LocationsListFrgment extends Fragment {
          ButterKnife.bind(this,mView);
          mMainActivity =((MainActivity) getActivity());
         mMainActivity.mAppComponent.inject(this);
-        LocationViewModel mLocationViewModel = new ViewModelProvider(mMainActivity,mTripViewModelsFactory).get(LocationViewModel.class);
-        if(mMainActivity.activeTrip!=null) {
-            mLocationViewModel.getAllLocations(mMainActivity.activeTrip.getId()).observe(getViewLifecycleOwner(), new Observer<List<TripLocation>>() {
+        ActivityViewModel mActivityViewModel = new ViewModelProvider(mMainActivity,mTripViewModelsFactory).get(ActivityViewModel.class);
+        if(mMainActivity.activeTripLocation!=null) {
+            mActivityViewModel.getAllActivities(mMainActivity.activeTripLocation.getId()).observe(getViewLifecycleOwner(), new Observer<List<Activity>>() {
                 @Override
-                public void onChanged(List<TripLocation> locations) {
-                    LocationsAdapter mLocationsAdapter = new LocationsAdapter(locations);
+                public void onChanged(List<Activity> activities) {
+                    ActivitesAdapter mActivitesAdapter = new ActivitesAdapter(activities,mActivityViewModel);
                     rclLocations.setLayoutManager(new LinearLayoutManager(mMainActivity));
-                    rclLocations.setAdapter(mLocationsAdapter);
+                    rclLocations.setAdapter(mActivitesAdapter);
                 }
             });
         }

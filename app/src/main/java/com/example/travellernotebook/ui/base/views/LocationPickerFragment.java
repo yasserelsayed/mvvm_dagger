@@ -16,6 +16,7 @@ import android.widget.Button;
 
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.Trip;
+import com.example.travellernotebook.domain.TripLocation;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -55,6 +56,7 @@ public class LocationPickerFragment extends Fragment  implements OnMapReadyCallb
     MainActivity mMainActivity;
     Geocoder mGeocoder;
     Trip mTrip;
+    TripLocation mTripLocation;
     @BindView(R.id.btnSubmit)
     Button btnSubmit;
 
@@ -62,6 +64,13 @@ public class LocationPickerFragment extends Fragment  implements OnMapReadyCallb
         this.mTrip = mTrip;
         if(mTrip.getLatitude()!=null && mTrip.getLatitude()>0)
             mCurrenjtLatLng = new LatLng(mTrip.getLatitude(),mTrip.getLongitude());
+        else mCurrenjtLatLng = new LatLng(-34, 151);
+    }
+
+    public LocationPickerFragment(TripLocation mTripLocation){
+        this.mTripLocation = mTripLocation;
+        if(mTripLocation.getLatitude()!=null && mTripLocation.getLatitude()>0)
+            mCurrenjtLatLng = new LatLng(mTripLocation.getLatitude(),mTripLocation.getLongitude());
         else mCurrenjtLatLng = new LatLng(-34, 151);
     }
 
@@ -101,8 +110,12 @@ public class LocationPickerFragment extends Fragment  implements OnMapReadyCallb
             public void onClick(View view) {
                 try {
                     List<Address> addresses = mGeocoder.getFromLocation(mCurrenjtLatLng.latitude, mCurrenjtLatLng.longitude, 1);
-                    if(addresses.size() > 0)
+                    if(addresses.size() > 0) {
+                        if(mTrip!=null)
                         mTrip.setLocationName(addresses.get(0).getLocality());
+                        else if(mTripLocation!=null)
+                            mTripLocation.setLocationAddress(addresses.get(0).getLocality());
+                    }
                         mMainActivity.onBackPressed();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -133,8 +146,13 @@ public class LocationPickerFragment extends Fragment  implements OnMapReadyCallb
 
                 @Override
                 public void onMarkerDragEnd(Marker marker) {
-                    mTrip.setLatitude(marker.getPosition().latitude);
-                    mTrip.setLongitude(marker.getPosition().longitude);
+                    if(mTrip!=null) {
+                        mTrip.setLatitude(marker.getPosition().latitude);
+                        mTrip.setLongitude(marker.getPosition().longitude);
+                    }else if(mTripLocation!=null){
+                        mTripLocation.setLatitude(marker.getPosition().latitude);
+                        mTripLocation.setLongitude(marker.getPosition().longitude);
+                    }
                 }
             });
         }
@@ -179,8 +197,13 @@ public class LocationPickerFragment extends Fragment  implements OnMapReadyCallb
     private void setPinLocation(LatLng mLatLng , boolean MoveCam) {
         if (mMap != null) {
             mMarker.setPosition(mLatLng);
-            mTrip.setLatitude(mLatLng.latitude);
-            mTrip.setLongitude(mLatLng.longitude);
+            if(mTrip!=null) {
+                mTrip.setLatitude(mLatLng.latitude);
+                mTrip.setLongitude(mLatLng.longitude);
+            }else if(mTripLocation!=null){
+                mTripLocation.setLatitude(mLatLng.latitude);
+                mTripLocation.setLongitude(mLatLng.longitude);
+            }
             if (MoveCam) {
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(mLatLng));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 10));

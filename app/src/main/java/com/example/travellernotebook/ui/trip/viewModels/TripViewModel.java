@@ -22,6 +22,10 @@ public class TripViewModel extends ViewModel {
         mTripRepository.addTrip(mTrip);
     }
 
+    public void removeTrip(Trip mTrip){
+        mTripRepository.removeTrip(mTrip);
+    }
+
     public LiveData<List<Trip>> getAllTrips(){
         return mTripRepository.getAll();
     }

@@ -64,6 +64,7 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.AdapterHolde
         holder.constContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mMainActivity.activeTrip = mTrip;
                 mMainActivity.transitionToFragment(new LocationsHomeFrgment());
             }
         });

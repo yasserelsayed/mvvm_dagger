@@ -43,6 +43,7 @@ public class Trip implements Serializable {
     public Tripdb getRow()
     {
         Tripdb mTripdb =  new Tripdb();
+        mTripdb.dbid = this.id;
         mTripdb.tripName = this.tripName;
         mTripdb.latitude = this.latitude.toString();
         mTripdb.longitude = this.longitude.toString();

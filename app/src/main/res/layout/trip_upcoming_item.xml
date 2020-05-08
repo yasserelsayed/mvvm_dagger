@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_height"
-    android:padding="@dimen/default_padding">
+    android:padding="@dimen/default_padding"
+    android:id="@+id/constContainer">
 
     <ImageView
         android:id="@+id/imgTripMainPic"

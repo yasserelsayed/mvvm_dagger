@@ -2,6 +2,9 @@ package com.example.travellernotebook.ui.trip.views;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -10,6 +13,7 @@ import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.Trip;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.base.views.PagerAdapter;
+import com.example.travellernotebook.ui.profile.views.ProfileFrgment;
 import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
 import com.example.travellernotebook.ui.trip.viewModels.TripViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,6 +49,7 @@ public class HomeFrgment extends Fragment{
     FloatingActionButton btnAdd;
 
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,13 +61,14 @@ public class HomeFrgment extends Fragment{
         mMainActivity.setSupportActionBar(myToolbar);
         mMainActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mMainActivity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+        myToolbar.setTitle(R.string.app_name);
         List<Fragment> lst = new ArrayList<>();
         lst.add(new TripsListFrgment());
         lst.add(new TripsMapFrgment());
         PagerAdapter mPagerAdapter = new PagerAdapter(getChildFragmentManager(),lst);
         pager.setAdapter(mPagerAdapter);
         scrnTabs.setupWithViewPager(pager);
-
+        setHasOptionsMenu(true);
         mMainActivity.mAppComponent.inject(this);
         TripViewModel mTripViewModel = new ViewModelProvider(mMainActivity,mTripViewModelsFactory).get(TripViewModel.class);
         mTripViewModel.getAllTrips().observe(getViewLifecycleOwner(), new Observer<List<Trip>>() {
@@ -83,6 +89,25 @@ public class HomeFrgment extends Fragment{
             }
         });
     return mView;
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.home, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.mnuProfile:
+                mMainActivity.transitionToFragment(new ProfileFrgment());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
     }
 
 
