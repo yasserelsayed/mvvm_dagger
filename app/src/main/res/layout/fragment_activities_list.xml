@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rclItems"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <FrameLayout
+        android:visibility="gone"
+        android:id="@+id/frmAddQuote"
+        android:background="@color/colorTransBlack"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imgClose"
+            android:layout_width="@dimen/small_button_size"
+            android:layout_height="@dimen/small_button_size"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/default_margin"
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+            tools:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <EditText
+            android:id="@+id/edtAddQuote"
+            android:hint="@string/txt_add_quote"
+            android:padding="@dimen/default_padding"
+            android:textColor="@color/cardview_dark_background"
+            android:text=""
+            android:gravity="start"
+            android:layout_gravity="center"
+            android:background="@drawable/edit_text_background"
+            android:layout_width="@dimen/edit_text_size"
+            android:layout_height="@dimen/edit_text_size"/>
+
+        <Button
+            android:layout_margin="@dimen/default_margin"
+            android:layout_gravity="center_horizontal|bottom"
+            android:id="@+id/btnSubmit"
+            style="@style/button"
+            android:text="@string/txt_save" />
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

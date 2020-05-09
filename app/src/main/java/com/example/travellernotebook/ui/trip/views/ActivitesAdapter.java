@@ -4,12 +4,13 @@ package com.example.travellernotebook.ui.trip.views;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.Activity;
+import com.example.travellernotebook.domain.Quote;
 import com.example.travellernotebook.ui.base.MainActivity;
-import com.example.travellernotebook.ui.trip.viewModels.ActivityViewModel;
 
 import java.util.List;
 
@@ -22,11 +23,11 @@ public class ActivitesAdapter extends RecyclerView.Adapter<ActivitesAdapter.Adap
 
     List<Activity> Datasource;
     MainActivity mMainActivity;
-    ActivityViewModel mActivityViewModel;
+    ActivitiesListFrgment mActivitiesListFrgment;
 
-    public ActivitesAdapter(List<Activity> datasource, ActivityViewModel mActivityViewModel) {
+    public ActivitesAdapter(List<Activity> datasource, ActivitiesListFrgment mActivitiesListFrgment) {
         Datasource = datasource;
-        this.mActivityViewModel = mActivityViewModel;
+        this.mActivitiesListFrgment = mActivitiesListFrgment;
     }
 
 
@@ -45,15 +46,33 @@ public class ActivitesAdapter extends RecyclerView.Adapter<ActivitesAdapter.Adap
         holder.txtDeleteActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mActivityViewModel.removeActivity(mActivity);
+                mActivitiesListFrgment.mActivityViewModel.removeActivity(mActivity);
             }
         });
         holder.txtAddQuote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                mActivitiesListFrgment.showAddQuoteEditor(mActivity.getId());
             }
         });
+
+
+        if(mActivity.getLstQuotes()!=null){
+            holder.lnrQuotes.removeAllViews();
+            for (Quote mQuote : mActivity.getLstQuotes()){
+                View mView =  LayoutInflater.from(mMainActivity).inflate(R.layout.quote_item,holder.constContainer,false);
+                TextView txtQuote = mView.findViewById(R.id.txtQuote);
+                TextView txtDeleteQuote = mView.findViewById(R.id.txtDeleteQuote);
+                txtQuote.setText(mQuote.getQuote());
+                holder.lnrQuotes.addView(mView);
+                txtDeleteQuote.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                     mActivitiesListFrgment.mActivityViewModel.removeActivityQuote(mQuote);
+                    }
+                });
+            }
+        }
 
     }
 
@@ -67,11 +86,13 @@ public class ActivitesAdapter extends RecyclerView.Adapter<ActivitesAdapter.Adap
        TextView txtActivityName;
        TextView txtAddQuote;
        ConstraintLayout constContainer;
+       LinearLayout lnrQuotes;
      public AdapterHolder(@NonNull View itemView) {
          super(itemView);
          txtDeleteActivity = (TextView)itemView.findViewById(R.id.txtDeleteActivity);
          txtActivityName = (TextView)itemView.findViewById(R.id.txtActivityName);
          txtAddQuote = (TextView)itemView.findViewById(R.id.txtAddQuote);
+         lnrQuotes = (LinearLayout) itemView.findViewById(R.id.lnrQuotes);
          constContainer = (ConstraintLayout)itemView.findViewById(R.id.constContainer);
      }
  }

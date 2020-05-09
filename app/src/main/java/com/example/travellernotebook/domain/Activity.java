@@ -3,11 +3,22 @@ package com.example.travellernotebook.domain;
 import com.example.travellernotebook.data.database.entities.Activitydb;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Activity implements Serializable {
     int id;
     String activityName;
     int parent;
+
+    List<Quote>lstQuotes;
+
+    public void setLstQuotes(List<Quote> lstQuotes) {
+        this.lstQuotes = lstQuotes;
+    }
+
+    public List<Quote> getLstQuotes() {
+        return lstQuotes;
+    }
 
     public Activity(Activitydb mActivitydb) {
         this.id = mActivitydb.dbid;

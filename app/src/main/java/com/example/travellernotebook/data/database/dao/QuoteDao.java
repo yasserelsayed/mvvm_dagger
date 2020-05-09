@@ -13,14 +13,11 @@ import androidx.room.Query;
 @Dao
 public interface QuoteDao {
 
-    @Query("SELECT * FROM qoute")
-    List<Quotedb> getAll();
+    @Query("SELECT * FROM quote WHERE activity_id = :activityId")
+    List<Quotedb> getAll(int activityId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Quotedb mQuote);
-
-    @Query("SELECT * FROM qoute WHERE dbid = :quoteId")
-    Quotedb getRecord(String quoteId);
 
     @Delete
     void delete(Quotedb mQuote);

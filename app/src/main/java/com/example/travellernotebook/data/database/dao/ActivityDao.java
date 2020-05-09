@@ -13,8 +13,8 @@ import androidx.room.Query;
 @Dao
 public interface ActivityDao {
 
-    @Query("SELECT * FROM activity WHERE location_id = :activityId")
-    List<Activitydb> getAll(int activityId);
+    @Query("SELECT * FROM activity WHERE location_id = :locationId")
+    List<Activitydb> getAll(int locationId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Activitydb mActivity);

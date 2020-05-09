@@ -2,6 +2,7 @@ package com.example.travellernotebook.ui.trip.viewModels;
 
 import com.example.travellernotebook.data.TripRepository;
 import com.example.travellernotebook.domain.Activity;
+import com.example.travellernotebook.domain.Quote;
 
 
 import java.util.List;
@@ -26,6 +27,14 @@ public class ActivityViewModel extends ViewModel {
 
     public LiveData<List<Activity>> getAllActivities(int locationId){
         return mTripRepository.getAllActivities(locationId);
+    }
+
+    public void addActivityQuote(Quote mQuote){
+        mTripRepository.addQuote(mQuote);
+    }
+
+    public void removeActivityQuote(Quote mQuote){
+        mTripRepository.removeQuote(mQuote);
     }
 
 

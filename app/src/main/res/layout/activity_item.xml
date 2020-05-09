@@ -4,23 +4,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/item_height"
+    android:layout_height="wrap_content"
     android:padding="@dimen/default_padding"
     android:id="@+id/constContainer">
 
     <TextView
         android:id="@+id/txtDeleteActivity"
-        android:layout_width="@dimen/delete_button_size"
-        android:layout_height="@dimen/delete_button_size"
+        android:layout_width="@dimen/small_button_size"
+        android:layout_height="@dimen/small_button_size"
         android:background="@drawable/button_background"
         android:gravity="center"
+        android:paddingBottom="10dp"
         android:text="x"
         android:textColor="@android:color/white"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/txtActivityName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/txtActivityName" />
 
     <TextView
         android:id="@+id/txtActivityName"
@@ -31,7 +32,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/button_background_accent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/lnrQuotes"
         app:layout_constraintEnd_toStartOf="@+id/txtAddQuote"
         app:layout_constraintStart_toEndOf="@+id/txtDeleteActivity"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,9 +44,19 @@
         android:text="@string/txt_add_quote"
         android:textColor="@color/colorAccent"
         android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txtActivityName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtActivityName" />
+
+    <LinearLayout
+        android:id="@+id/lnrQuotes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/txtDeleteActivity">
 
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
