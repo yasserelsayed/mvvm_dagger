@@ -5,9 +5,11 @@ import android.os.AsyncTask;
 import com.example.travellernotebook.data.database.AppDatabase;
 import com.example.travellernotebook.data.database.entities.Activitydb;
 import com.example.travellernotebook.data.database.entities.Locationdb;
+import com.example.travellernotebook.data.database.entities.Mediadb;
 import com.example.travellernotebook.data.database.entities.Quotedb;
 import com.example.travellernotebook.data.database.entities.Tripdb;
 import com.example.travellernotebook.domain.Activity;
+import com.example.travellernotebook.domain.Media;
 import com.example.travellernotebook.domain.Quote;
 import com.example.travellernotebook.domain.Trip;
 import com.example.travellernotebook.domain.TripLocation;
@@ -24,6 +26,7 @@ public class TripRepository {
     MutableLiveData<List<Trip>> Datasource;
     MutableLiveData<List<TripLocation>> LocationsDatasource;
     MutableLiveData<List<Activity>> ActivitiesDatasource;
+    MutableLiveData<List<Media>> MediaContentsDatasource;
 
     private AppDatabase mAppDatabase;
     private FirebaseFirestore mFirebaseFirestore;
@@ -33,6 +36,7 @@ public class TripRepository {
         Datasource = new MutableLiveData<>();
         LocationsDatasource = new MutableLiveData<>();
         ActivitiesDatasource = new MutableLiveData<>();
+        MediaContentsDatasource = new MutableLiveData<>();
     }
 
     public void addTrip(Trip mTrip){
@@ -111,6 +115,26 @@ public class TripRepository {
         }.execute();
     }
 
+    public LiveData<List<Media>> getAllMediaContents(int locationId){
+        List<Media> lstMediaContents = new ArrayList<>();
+        new AsyncTask<Void,Void,List<Mediadb>>(){
+            @Override
+            protected List<Mediadb> doInBackground(Void... voids) {
+                return  mAppDatabase.mediaDao().getAll(locationId);
+            }
+
+            @Override
+            protected void onPostExecute(List<Mediadb> mediaContents) {
+                super.onPostExecute(mediaContents);
+                for(Mediadb mMediadb :mediaContents)
+                    lstMediaContents.add(new Media(mMediadb));
+                MediaContentsDatasource.setValue(lstMediaContents);
+            }
+        }.execute();
+
+        return MediaContentsDatasource;
+    }
+
     public LiveData<List<TripLocation>> getAllLocations(int tripId){
         List<TripLocation> lstTripLocations = new ArrayList<>();
         new AsyncTask<Void,Void,List<Locationdb>>(){
@@ -185,6 +209,28 @@ public class TripRepository {
                 return null;
             }
         }.execute();
+    }
+
+    public void addMediaContent(Media mMedia){
+        new AsyncTask<Void,Void,Void>(){
+            @Override
+            protected Void doInBackground(Void... voids) {
+                mAppDatabase.mediaDao().insert(mMedia.getRow());
+                return null;
+            }
+        }.execute();
+        getAllMediaContents(mMedia.getParent());
+    }
+
+    public void removeMediaContent(Media mMedia){
+        new AsyncTask<Void,Void,Void>(){
+            @Override
+            protected Void doInBackground(Void... voids) {
+                mAppDatabase.mediaDao().delete(mMedia.getRow());
+                return null;
+            }
+        }.execute();
+        getAllMediaContents(mMedia.getParent());
     }
 
 

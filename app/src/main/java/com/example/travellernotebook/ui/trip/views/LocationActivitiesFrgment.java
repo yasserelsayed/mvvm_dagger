@@ -39,8 +39,6 @@ public class LocationActivitiesFrgment extends Fragment{
     ViewPager pager;
     @BindView(R.id.scrnTabs)
     TabLayout scrnTabs;
-    @BindView(R.id.btnAdd)
-    FloatingActionButton btnAdd;
     @Inject
     TripViewModelsFactory mTripViewModelsFactory;
     LocationViewModel mLocationViewModel;
@@ -50,7 +48,7 @@ public class LocationActivitiesFrgment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
          super.onCreateView(inflater, container, savedInstanceState);
-         View mView = inflater.inflate(R.layout.fragment_locations_home,container,false);
+         View mView = inflater.inflate(R.layout.fragment_activities_home,container,false);
          ButterKnife.bind(this,mView);
           mMainActivity = ((MainActivity) getActivity());
         Toolbar mToolbar = (Toolbar) mView.findViewById(R.id.toolbar);
@@ -61,17 +59,12 @@ public class LocationActivitiesFrgment extends Fragment{
         mLocationViewModel = new ViewModelProvider(mMainActivity,mTripViewModelsFactory).get(LocationViewModel.class);
         List<Fragment> lst = new ArrayList<>();
         lst.add(new ActivitiesListFrgment());
+        lst.add(new PhotosGalleryFrgment());
         setHasOptionsMenu(true);
         PagerAdapter mPagerAdapter = new PagerAdapter(getChildFragmentManager(),lst);
         pager.setAdapter(mPagerAdapter);
         scrnTabs.setupWithViewPager(pager);
         mToolbar.setTitle(getString(R.string.txt_location_activities));
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mMainActivity.transitionToFragment(new ActivityFrgment());
-            }
-        });
     return mView;
     }
 

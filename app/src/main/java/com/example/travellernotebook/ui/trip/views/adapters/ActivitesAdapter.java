@@ -1,9 +1,10 @@
-package com.example.travellernotebook.ui.trip.views;
+package com.example.travellernotebook.ui.trip.views.adapters;
 
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -11,6 +12,7 @@ import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.Activity;
 import com.example.travellernotebook.domain.Quote;
 import com.example.travellernotebook.ui.base.MainActivity;
+import com.example.travellernotebook.ui.trip.views.ActivitiesListFrgment;
 
 import java.util.List;
 
@@ -69,6 +71,7 @@ public class ActivitesAdapter extends RecyclerView.Adapter<ActivitesAdapter.Adap
                     @Override
                     public void onClick(View view) {
                      mActivitiesListFrgment.mActivityViewModel.removeActivityQuote(mQuote);
+                        holder.lnrQuotes.removeView(mView);
                     }
                 });
             }
@@ -89,11 +92,11 @@ public class ActivitesAdapter extends RecyclerView.Adapter<ActivitesAdapter.Adap
        LinearLayout lnrQuotes;
      public AdapterHolder(@NonNull View itemView) {
          super(itemView);
-         txtDeleteActivity = (TextView)itemView.findViewById(R.id.txtDeleteActivity);
-         txtActivityName = (TextView)itemView.findViewById(R.id.txtActivityName);
-         txtAddQuote = (TextView)itemView.findViewById(R.id.txtAddQuote);
-         lnrQuotes = (LinearLayout) itemView.findViewById(R.id.lnrQuotes);
-         constContainer = (ConstraintLayout)itemView.findViewById(R.id.constContainer);
+         txtDeleteActivity = itemView.findViewById(R.id.txtDeleteActivity);
+         txtActivityName = itemView.findViewById(R.id.txtActivityName);
+         txtAddQuote = itemView.findViewById(R.id.txtAddQuote);
+         lnrQuotes =  itemView.findViewById(R.id.lnrQuotes);
+         constContainer = itemView.findViewById(R.id.constContainer);
      }
  }
 }

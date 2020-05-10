@@ -59,5 +59,8 @@ dependencies {
     // places
     implementation 'com.google.android.libraries.places:places:2.2.0'
 
+    // gallery , camera imaage picker
+    implementation 'com.github.nguyenhoanglam:ImagePicker:1.2.1'
+
 }
 apply plugin: 'com.google.gms.google-services'

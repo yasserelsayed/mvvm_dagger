@@ -1,8 +1,5 @@
 package com.example.travellernotebook.ui.base.views;
 
-import com.example.travellernotebook.ui.trip.views.TripsListFrgment;
-import com.example.travellernotebook.ui.trip.views.TripsMapFrgment;
-
 import java.util.List;
 
 import androidx.annotation.NonNull;

@@ -1,4 +1,4 @@
-package com.example.travellernotebook.ui.trip.views;
+package com.example.travellernotebook.ui.trip.views.adapters;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.TripLocation;
 import com.example.travellernotebook.ui.base.MainActivity;
+import com.example.travellernotebook.ui.trip.views.LocationActivitiesFrgment;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;

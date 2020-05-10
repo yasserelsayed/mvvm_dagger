@@ -11,6 +11,7 @@ import com.example.travellernotebook.domain.Trip;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
 import com.example.travellernotebook.ui.trip.viewModels.TripViewModel;
+import com.example.travellernotebook.ui.trip.views.adapters.TripsAdapter;
 
 import java.util.List;
 

@@ -14,11 +14,11 @@ import androidx.room.Query;
 @Dao
 public interface MediaDao {
 
-    @Query("SELECT * FROM media")
-    List<Mediadb> getAll();
+    @Query("SELECT * FROM media WHERE location_id = :locationId")
+    List<Mediadb> getAll(int locationId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Mediadb mActivity);
+    void insert(Mediadb mMediadb);
 
     @Query("SELECT * FROM media WHERE dbid = :mediaId")
     Activitydb getRecord(String mediaId);

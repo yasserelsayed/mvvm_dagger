@@ -7,6 +7,7 @@ import com.example.travellernotebook.ui.trip.views.LocationActivitiesFrgment;
 import com.example.travellernotebook.ui.trip.views.LocationFrgment;
 import com.example.travellernotebook.ui.trip.views.LocationsHomeFrgment;
 import com.example.travellernotebook.ui.trip.views.LocationsListFrgment;
+import com.example.travellernotebook.ui.trip.views.PhotosGalleryFrgment;
 import com.example.travellernotebook.ui.trip.views.TripFrgment;
 import com.example.travellernotebook.ui.trip.views.TripsListFrgment;
 
@@ -27,4 +28,5 @@ public interface AppComponent {
     public void inject(ActivitiesListFrgment mActivitiesListFrgment);
     public void inject(LocationActivitiesFrgment mLocationActivitiesFrgment);
     public void inject(ActivityFrgment mActivityFrgment);
+    public void inject(PhotosGalleryFrgment mPhotosGalleryFrgment);
 }

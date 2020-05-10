@@ -16,6 +16,8 @@ import com.example.travellernotebook.domain.Quote;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
 import com.example.travellernotebook.ui.trip.viewModels.ActivityViewModel;
+import com.example.travellernotebook.ui.trip.views.adapters.ActivitesAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -47,6 +49,8 @@ public class ActivitiesListFrgment extends Fragment {
     Button btnSubmit;
     @BindView(R.id.edtAddQuote)
     EditText edtAddQuote;
+    @BindView(R.id.btnAdd)
+    FloatingActionButton btnAdd;
     public  ActivityViewModel mActivityViewModel;
 
 
@@ -77,6 +81,13 @@ public class ActivitiesListFrgment extends Fragment {
                 }
             });
         }
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mMainActivity.transitionToFragment(new ActivityFrgment());
+            }
+        });
 
         imgClose.setOnClickListener(new View.OnClickListener() {
             @Override

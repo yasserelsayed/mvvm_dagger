@@ -7,12 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.travellernotebook.R;
-import com.example.travellernotebook.domain.Trip;
 import com.example.travellernotebook.domain.TripLocation;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
 import com.example.travellernotebook.ui.trip.viewModels.LocationViewModel;
-import com.example.travellernotebook.ui.trip.viewModels.TripViewModel;
+import com.example.travellernotebook.ui.trip.views.adapters.LocationsAdapter;
 
 import java.util.List;
 
