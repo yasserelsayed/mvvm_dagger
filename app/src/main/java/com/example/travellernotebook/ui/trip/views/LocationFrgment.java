@@ -56,6 +56,8 @@ public class LocationFrgment extends Fragment implements    View.OnClickListener
     Button btnSubmit;
     @BindView(R.id.imgLocationMain)
     ImageView imgLocationMain;
+    @BindView(R.id.imgBack)
+    ImageView imgBack;
     MainActivity mMainActivity;
 
     DatePickerDialog datePicker;
@@ -133,12 +135,12 @@ public class LocationFrgment extends Fragment implements    View.OnClickListener
                 txtDate.setText(mTripLocation.getStartDate());
             }
         },year,month,day);
-
         txtDate.setText(mTripLocation.getStartDate());
         txtDate.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
         imgLocationMain.setOnClickListener(this);
         txtLocation.setOnClickListener(this);
+        imgBack.setOnClickListener(this);
         return mView;
     }
 
@@ -158,16 +160,21 @@ public class LocationFrgment extends Fragment implements    View.OnClickListener
             }case R.id.txtLocation:{
                 mMainActivity.transitionToFragment(new LocationPickerFragment(mTripLocation));
                 break;
-            }case R.id.btnSubmit:{
-                if(validate()){
+            }case R.id.btnSubmit: {
+                if (validate()) {
                     mTripLocation.setLocationName(edtLocationName.getText().toString());
-                    if(edtBudget.getText().toString()==null || edtBudget.getText().toString().isEmpty())
+                    if (edtBudget.getText().toString() == null || edtBudget.getText().toString().isEmpty())
                         mTripLocation.setBudget(0.0);
-                    else  mTripLocation.setBudget(Double.parseDouble(edtBudget.getText().toString()));
+                    else
+                        mTripLocation.setBudget(Double.parseDouble(edtBudget.getText().toString()));
                     mLocationViewModel.addTripLocation(mTripLocation);
                     mMainActivity.onBackPressed();
                 }
                 break;
+            }
+                case R.id.imgBack:{
+                    mMainActivity.onBackPressed();
+                    break;
             }
         }
     }
@@ -175,6 +182,7 @@ public class LocationFrgment extends Fragment implements    View.OnClickListener
     private boolean validate(){
         boolean res = true;
         String locationName = edtLocationName.getText().toString();
+        String budget =  edtBudget.getText().toString();
 
         if(locationName==null || locationName.isEmpty()) {
             edtLocationName.setError(getString(R.string.msg_this_field_required));
@@ -185,6 +193,12 @@ public class LocationFrgment extends Fragment implements    View.OnClickListener
         if(mTripLocation.getLocationAddress()==null || mTripLocation.getLocationAddress().isEmpty()) {
             txtLocation.setError(getString(R.string.msg_this_field_required));
             txtLocation.requestFocus();
+            res = false;
+        }
+
+        if(!budget.isEmpty() && Double.parseDouble(budget)>mMainActivity.activeTrip.getBudget()){
+            edtBudget.setError(getString(R.string.msg_location_budget_invalid));
+            edtBudget.requestFocus();
             res = false;
         }
 

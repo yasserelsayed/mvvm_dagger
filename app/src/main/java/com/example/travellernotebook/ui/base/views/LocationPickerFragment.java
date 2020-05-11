@@ -92,11 +92,12 @@ public class LocationPickerFragment extends Fragment  implements OnMapReadyCallb
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
                 getChildFragmentManager().findFragmentById(R.id.autocomplete_fragment);
 
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG));
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
-                setPinLocation(place.getLatLng(),true);
+                if(place.getLatLng()!=null)
+                    setPinLocation(place.getLatLng(), true);
             }
 
             @Override
@@ -115,6 +116,13 @@ public class LocationPickerFragment extends Fragment  implements OnMapReadyCallb
                         mTrip.setLocationName(addresses.get(0).getLocality());
                         else if(mTripLocation!=null)
                             mTripLocation.setLocationAddress(addresses.get(0).getLocality());
+                    }
+                    if(mTrip!=null) {
+                        mTrip.setLatitude(mCurrenjtLatLng.latitude);
+                        mTrip.setLongitude(mCurrenjtLatLng.longitude);
+                    }else if(mTripLocation!=null){
+                        mTripLocation.setLatitude(mCurrenjtLatLng.latitude);
+                        mTripLocation.setLongitude(mCurrenjtLatLng.longitude);
                     }
                         mMainActivity.onBackPressed();
                 } catch (IOException e) {
@@ -146,13 +154,7 @@ public class LocationPickerFragment extends Fragment  implements OnMapReadyCallb
 
                 @Override
                 public void onMarkerDragEnd(Marker marker) {
-                    if(mTrip!=null) {
-                        mTrip.setLatitude(marker.getPosition().latitude);
-                        mTrip.setLongitude(marker.getPosition().longitude);
-                    }else if(mTripLocation!=null){
-                        mTripLocation.setLatitude(marker.getPosition().latitude);
-                        mTripLocation.setLongitude(marker.getPosition().longitude);
-                    }
+                    mCurrenjtLatLng = new LatLng(marker.getPosition().latitude,marker.getPosition().longitude);
                 }
             });
         }
@@ -197,13 +199,7 @@ public class LocationPickerFragment extends Fragment  implements OnMapReadyCallb
     private void setPinLocation(LatLng mLatLng , boolean MoveCam) {
         if (mMap != null) {
             mMarker.setPosition(mLatLng);
-            if(mTrip!=null) {
-                mTrip.setLatitude(mLatLng.latitude);
-                mTrip.setLongitude(mLatLng.longitude);
-            }else if(mTripLocation!=null){
-                mTripLocation.setLatitude(mLatLng.latitude);
-                mTripLocation.setLongitude(mLatLng.longitude);
-            }
+            mCurrenjtLatLng = mLatLng;
             if (MoveCam) {
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(mLatLng));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 10));

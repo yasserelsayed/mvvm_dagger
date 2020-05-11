@@ -22,6 +22,8 @@
     <string name="txt_total">Total</string>
     <string name="txt_upcoming">Upcoming</string>
     <string name="msg_this_field_required">this field required</string>
+    <string name="msg_location_budget_invalid">Location budget has to be less than trip budget </string>
+    <string name="msg_dates_error">End date has to be after start date</string>
     <string name="txt_location_activities">Location Activities</string>
 
     <string name="maps_api_key">AIzaSyCfAiZPLV5twQ8NE-tfRtIQIozOLqjZmnE</string>

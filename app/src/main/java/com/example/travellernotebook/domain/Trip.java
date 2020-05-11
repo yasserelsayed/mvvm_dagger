@@ -151,4 +151,10 @@ public class Trip implements Serializable {
             return false;
         return true;
     }
+
+    public Boolean isDatesValid(){
+        if(startDate==null || endDate==null)
+            return false;
+        return startDate.before(endDate);
+    }
 }

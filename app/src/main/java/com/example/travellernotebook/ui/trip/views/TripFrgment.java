@@ -60,6 +60,8 @@ public class TripFrgment extends Fragment implements    View.OnClickListener{
     Button btnSubmit;
     @BindView(R.id.imgTripMain)
     ImageView imgTripMain;
+    @BindView(R.id.imgBack)
+    ImageView imgBack;
 
     MainActivity mMainActivity;
     public TripFrgment()
@@ -153,6 +155,7 @@ public class TripFrgment extends Fragment implements    View.OnClickListener{
         btnSubmit.setOnClickListener(this);
         imgTripMain.setOnClickListener(this);
         txtLocation.setOnClickListener(this);
+        imgBack.setOnClickListener(this);
     return mView;
     }
 
@@ -186,13 +189,16 @@ public class TripFrgment extends Fragment implements    View.OnClickListener{
                     }
                 break;
             }
+            case R.id.imgBack:{
+                 mMainActivity.onBackPressed();
+                break;
+            }
         }
     }
 
     private boolean validate(){
         boolean res = true;
         String tripName = edtTripName.getText().toString();
-        String locationName = txtLocation.getText().toString();
 
         if(tripName==null || tripName.isEmpty()) {
             edtTripName.setError(getString(R.string.msg_this_field_required));
@@ -202,6 +208,12 @@ public class TripFrgment extends Fragment implements    View.OnClickListener{
 
         if(mTrip.getLocationName()==null || mTrip.getLocationName().isEmpty()) {
             txtLocation.setError(getString(R.string.msg_this_field_required));
+            edtTripName.requestFocus();
+            res = false;
+        }
+
+        if(!mTrip.isDatesValid()){
+            txtEndDate.setError(getString(R.string.msg_dates_error));
             edtTripName.requestFocus();
             res = false;
         }
