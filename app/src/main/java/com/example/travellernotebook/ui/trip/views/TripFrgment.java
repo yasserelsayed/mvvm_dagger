@@ -126,7 +126,7 @@ public class TripFrgment extends Fragment implements    View.OnClickListener{
          ButterKnife.bind(this,mView);
          mCalendar = Calendar.getInstance();
           mMainActivity = ((MainActivity) getActivity());
-          mMainActivity.mAppComponent.inject(this);
+          mMainActivity.mMainActivityComponent.inject(this);
           mTripViewModel = new ViewModelProvider(this,mTripViewModelsFactory).get(TripViewModel.class);
 
         int month = mCalendar.get(Calendar.MONTH);

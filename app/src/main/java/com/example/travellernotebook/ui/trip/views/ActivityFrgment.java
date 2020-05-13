@@ -51,7 +51,7 @@ public class ActivityFrgment extends Fragment implements    View.OnClickListener
         View mView = inflater.inflate(R.layout.fragment_activity,container,false);
         ButterKnife.bind(this,mView);
         mMainActivity = ((MainActivity) getActivity());
-        mMainActivity.mAppComponent.inject(this);
+        mMainActivity.mMainActivityComponent.inject(this);
         mActivityViewModel = new ViewModelProvider(this,mTripViewModelsFactory).get(ActivityViewModel.class);
         btnSubmit.setOnClickListener(this);
         if(mMainActivity.activeTripLocation!=null)

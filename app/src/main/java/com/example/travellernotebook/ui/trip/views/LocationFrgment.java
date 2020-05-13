@@ -118,7 +118,7 @@ public class LocationFrgment extends Fragment implements    View.OnClickListener
         ButterKnife.bind(this,mView);
         mCalendar = Calendar.getInstance();
         mMainActivity = ((MainActivity) getActivity());
-        mMainActivity.mAppComponent.inject(this);
+        mMainActivity.mMainActivityComponent.inject(this);
         mLocationViewModel = new ViewModelProvider(this,mTripViewModelsFactory).get(LocationViewModel.class);
 
         if(mMainActivity.activeTrip!=null)

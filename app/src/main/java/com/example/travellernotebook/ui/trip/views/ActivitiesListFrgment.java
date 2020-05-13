@@ -69,7 +69,7 @@ public class ActivitiesListFrgment extends Fragment {
          View mView = inflater.inflate(R.layout.fragment_activities_list,container,false);
          ButterKnife.bind(this,mView);
          mMainActivity =((MainActivity) getActivity());
-        mMainActivity.mAppComponent.inject(this);
+        mMainActivity.mMainActivityComponent.inject(this);
         mActivityViewModel = new ViewModelProvider(mMainActivity,mTripViewModelsFactory).get(ActivityViewModel.class);
         if(mMainActivity.activeTripLocation!=null) {
             mActivityViewModel.getAllActivities(mMainActivity.activeTripLocation.getId()).observe(getViewLifecycleOwner(), new Observer<List<Activity>>() {

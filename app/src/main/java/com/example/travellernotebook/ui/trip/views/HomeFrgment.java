@@ -69,7 +69,7 @@ public class HomeFrgment extends Fragment{
         pager.setAdapter(mPagerAdapter);
         scrnTabs.setupWithViewPager(pager);
         setHasOptionsMenu(true);
-        mMainActivity.mAppComponent.inject(this);
+        mMainActivity.mMainActivityComponent.inject(this);
         TripViewModel mTripViewModel = new ViewModelProvider(mMainActivity,mTripViewModelsFactory).get(TripViewModel.class);
         mTripViewModel.getAllTrips().observe(getViewLifecycleOwner(), new Observer<List<Trip>>() {
             @Override

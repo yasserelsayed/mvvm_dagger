@@ -9,6 +9,15 @@
     android:padding="@dimen/screen_padding">
 
     <ImageView
+        android:id="@+id/imgBack"
+        android:layout_width="@dimen/small_button_size"
+        android:layout_height="@dimen/small_button_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/imagepicker_ic_back"
+        tools:srcCompat="@drawable/imagepicker_ic_back" />
+
+    <ImageView
         app:layout_constraintVertical_bias=".3"
         android:id="@+id/imgProfilePhoto"
         android:layout_width="@dimen/image_size"
@@ -25,6 +34,8 @@
         android:layout_margin="@dimen/default_margin"
         android:hint="@string/txt_user_name"
         android:inputType="text"
+        android:imeOptions="actionNext"
+        android:nextFocusForward="@id/edtEmail"
         app:layout_constraintBottom_toTopOf="@+id/edtEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -35,6 +46,8 @@
         android:layout_margin="@dimen/default_margin"
         android:hint="@string/txt_email"
         android:inputType="text"
+        android:imeOptions="actionNext"
+        android:nextFocusForward="@id/edtPhone"
         app:layout_constraintBottom_toTopOf="@+id/edtPhone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -45,15 +58,25 @@
         android:inputType="phone"
         android:layout_margin="@dimen/default_margin"
         android:hint="@string/txt_phone"
+        android:imeOptions="actionNext"
+        android:nextFocusForward="@id/edtPassword"
         app:layout_constraintBottom_toTopOf="@+id/edtPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:inputType="textPassword"
         android:id="@+id/edtPassword"
-        android:hint="@string/txt_password"
+        style="@style/edit"
         android:layout_margin="@dimen/default_margin"
+        android:hint="@string/txt_password"
+        android:inputType="textPassword"
+        android:imeOptions="actionDone"
+        app:layout_constraintBottom_toTopOf="@+id/space3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Space
+        android:id="@+id/space3"
         style="@style/edit"
         app:layout_constraintBottom_toTopOf="@+id/btnSubmit"
         app:layout_constraintEnd_toEndOf="parent"

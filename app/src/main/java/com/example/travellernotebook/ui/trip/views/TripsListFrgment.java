@@ -49,7 +49,7 @@ public class TripsListFrgment extends Fragment {
          View mView = inflater.inflate(R.layout.fragment_list,container,false);
          ButterKnife.bind(this,mView);
          mMainActivity =((MainActivity) getActivity());
-        mMainActivity.mAppComponent.inject(this);
+        mMainActivity.mMainActivityComponent.inject(this);
         TripViewModel mTripViewModel = new ViewModelProvider(mMainActivity,mTripViewModelsFactory).get(TripViewModel.class);
         mTripViewModel.getAllTrips().observe(getViewLifecycleOwner(), new Observer<List<Trip>>() {
             @Override

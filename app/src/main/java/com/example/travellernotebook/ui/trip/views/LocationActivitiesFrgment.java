@@ -55,7 +55,7 @@ public class LocationActivitiesFrgment extends Fragment{
         mMainActivity.setSupportActionBar(mToolbar);
         mMainActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mMainActivity.getSupportActionBar().setDisplayShowHomeEnabled(true);
-        mMainActivity.mAppComponent.inject(this);
+        mMainActivity.mMainActivityComponent.inject(this);
         mLocationViewModel = new ViewModelProvider(mMainActivity,mTripViewModelsFactory).get(LocationViewModel.class);
         List<Fragment> lst = new ArrayList<>();
         lst.add(new ActivitiesListFrgment());

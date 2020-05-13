@@ -49,7 +49,7 @@ public class LocationsListFrgment extends Fragment {
          View mView = inflater.inflate(R.layout.fragment_list,container,false);
          ButterKnife.bind(this,mView);
          mMainActivity =((MainActivity) getActivity());
-        mMainActivity.mAppComponent.inject(this);
+        mMainActivity.mMainActivityComponent.inject(this);
         LocationViewModel mLocationViewModel = new ViewModelProvider(mMainActivity,mTripViewModelsFactory).get(LocationViewModel.class);
         if(mMainActivity.activeTrip!=null) {
             mLocationViewModel.getAllLocations(mMainActivity.activeTrip.getId()).observe(getViewLifecycleOwner(), new Observer<List<TripLocation>>() {

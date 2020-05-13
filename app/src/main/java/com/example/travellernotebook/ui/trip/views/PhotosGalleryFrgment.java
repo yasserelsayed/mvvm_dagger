@@ -84,7 +84,7 @@ public class PhotosGalleryFrgment extends Fragment{
         View mView = inflater.inflate(R.layout.fragment_gallery_list,container,false);
         ButterKnife.bind(this,mView);
         mMainActivity = ((MainActivity) getActivity());
-        mMainActivity.mAppComponent.inject(this);
+        mMainActivity.mMainActivityComponent.inject(this);
         mImagePickerBuilderExtended = new ImagePickerBuilderExtended(this);
         mMediaViewModel = new ViewModelProvider(this,mTripViewModelsFactory).get(MediaViewModel.class);
 

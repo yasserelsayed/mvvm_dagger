@@ -14,7 +14,9 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.di.components.AppComponent;
-import com.example.travellernotebook.domain.Activity;
+import com.example.travellernotebook.di.components.DaggerMainActivityComponent;
+import com.example.travellernotebook.di.components.MainActivityComponent;
+import com.example.travellernotebook.di.modules.MainModule;
 import com.example.travellernotebook.domain.App;
 import com.example.travellernotebook.domain.Trip;
 import com.example.travellernotebook.domain.TripLocation;
@@ -26,12 +28,12 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 public class MainActivity extends AppCompatActivity {
 
     public PlacesClient mPlacesClient;
-    public AppComponent mAppComponent;
     FragmentManager mFragmentManager;
     Unbinder unbinder;
     Fragment CurrentFragment;
     public Trip activeTrip;
     public TripLocation activeTripLocation;
+    public MainActivityComponent mMainActivityComponent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +41,14 @@ public class MainActivity extends AppCompatActivity {
         unbinder = ButterKnife.bind(this);
         mPlacesClient = Places.createClient(this);
         mFragmentManager = getSupportFragmentManager();
-        mAppComponent = ((App)getApplication()).getAppComponent();
+        AppComponent mAppComponent = ((App)getApplication()).getAppComponent();
         transitionToFragment(new HomeFrgment());
+
+        mMainActivityComponent = DaggerMainActivityComponent.builder()
+                .appComponent(mAppComponent)
+                .mainModule(new MainModule())
+                .build();
+
 //        FirebaseFirestore mFirebaseFirestore = FirebaseFirestore.getInstance();
 //        Map<String, Object> user = new HashMap<>();
 //        user.put("first", "Ada");
