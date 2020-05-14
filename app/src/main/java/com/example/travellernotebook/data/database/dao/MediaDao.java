@@ -25,4 +25,7 @@ public interface MediaDao {
 
     @Delete
     void delete(Mediadb mMedia);
+
+    @Query("DELETE FROM media")
+    void reset();
 }

@@ -1,4 +1,4 @@
-package com.example.travellernotebook.ui.profile.views;
+package com.example.travellernotebook.ui.user.views;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,8 +16,8 @@ import android.widget.ImageView;
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.User;
 import com.example.travellernotebook.ui.base.MainActivity;
-import com.example.travellernotebook.ui.profile.ProfileViewModelsFactory;
-import com.example.travellernotebook.ui.profile.viewModels.ProfileViewModel;
+import com.example.travellernotebook.ui.user.UserViewModelsFactory;
+import com.example.travellernotebook.ui.user.viewModels.UserViewModel;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -36,12 +36,12 @@ import butterknife.ButterKnife;
 
 import static android.app.Activity.RESULT_OK;
 
-public class ProfileFrgment extends Fragment implements View.OnClickListener{
+public class UserFrgment extends Fragment implements View.OnClickListener{
 
     @Inject
-    ProfileViewModelsFactory mProfileViewModelsFactory;
+    UserViewModelsFactory mUserViewModelsFactory;
     MainActivity mMainActivity;
-    ProfileViewModel mProfileViewModel;
+    UserViewModel mUserViewModel;
 
     @BindView(R.id.edtUserName)
     EditText edtUserName;
@@ -59,7 +59,7 @@ public class ProfileFrgment extends Fragment implements View.OnClickListener{
     ImageView imgBack;
 
     User mUser;
-    public ProfileFrgment() {
+    public UserFrgment() {
         mUser = new User();
     }
 
@@ -92,9 +92,9 @@ public class ProfileFrgment extends Fragment implements View.OnClickListener{
         ButterKnife.bind(this,mView);
         mMainActivity =((MainActivity) getActivity());
         mMainActivity.mMainActivityComponent.inject(this);
-        mProfileViewModel = new ViewModelProvider(mMainActivity,mProfileViewModelsFactory).get(ProfileViewModel.class);
+        mUserViewModel = new ViewModelProvider(mMainActivity, mUserViewModelsFactory).get(UserViewModel.class);
 
-        mProfileViewModel.getUserProfile().observe(getViewLifecycleOwner(),new Observer<User>() {
+        mUserViewModel.getUserProfile().observe(getViewLifecycleOwner(),new Observer<User>() {
             @Override
             public void onChanged(User user) {
                 if(user.getEmail()!=null && !user.getEmail().isEmpty())
@@ -130,7 +130,7 @@ public class ProfileFrgment extends Fragment implements View.OnClickListener{
                 mUser.setPassword(edtPassword.getText().toString());
                 mUser.setPhone(edtPhone.getText().toString());
                 mUser.setUserName(edtUserName.getText().toString());
-                mProfileViewModel.updateUserProfile(mUser);
+                mUserViewModel.updateUserProfile(mUser);
                 mMainActivity.onBackPressed();
                 break;
             }

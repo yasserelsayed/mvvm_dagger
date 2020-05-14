@@ -61,6 +61,8 @@ dependencies {
 
     // gallery , camera imaage picker
     implementation 'com.github.nguyenhoanglam:ImagePicker:1.2.1'
+    // Smart login
+    implementation 'androidx.biometric:biometric:1.0.0'
 
 }
 apply plugin: 'com.google.gms.google-services'

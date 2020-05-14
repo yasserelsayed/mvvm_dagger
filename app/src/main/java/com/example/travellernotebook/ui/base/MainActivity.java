@@ -20,7 +20,7 @@ import com.example.travellernotebook.di.modules.MainModule;
 import com.example.travellernotebook.domain.App;
 import com.example.travellernotebook.domain.Trip;
 import com.example.travellernotebook.domain.TripLocation;
-import com.example.travellernotebook.ui.trip.views.HomeFrgment;
+import com.example.travellernotebook.ui.user.views.SplashFrgment;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         mPlacesClient = Places.createClient(this);
         mFragmentManager = getSupportFragmentManager();
         AppComponent mAppComponent = ((App)getApplication()).getAppComponent();
-        transitionToFragment(new HomeFrgment());
+        transitionToFragment(new SplashFrgment());
 
         mMainActivityComponent = DaggerMainActivityComponent.builder()
                 .appComponent(mAppComponent)

@@ -2,7 +2,9 @@ package com.example.travellernotebook.di.components;
 
 import com.example.travellernotebook.di.modules.MainModule;
 import com.example.travellernotebook.di.scope.MainScope;
-import com.example.travellernotebook.ui.profile.views.ProfileFrgment;
+import com.example.travellernotebook.ui.user.views.LoginFrgment;
+import com.example.travellernotebook.ui.user.views.SplashFrgment;
+import com.example.travellernotebook.ui.user.views.UserFrgment;
 import com.example.travellernotebook.ui.trip.views.ActivitiesListFrgment;
 import com.example.travellernotebook.ui.trip.views.ActivityFrgment;
 import com.example.travellernotebook.ui.trip.views.HomeFrgment;
@@ -29,5 +31,8 @@ public interface MainActivityComponent {
     public void inject(LocationActivitiesFrgment mLocationActivitiesFrgment);
     public void inject(ActivityFrgment mActivityFrgment);
     public void inject(PhotosGalleryFrgment mPhotosGalleryFrgment);
-    public void inject(ProfileFrgment mProfileFrgment);
+    public void inject(UserFrgment mUserFrgment);
+    public void inject(SplashFrgment mSplashFrgment);
+    public void inject(LoginFrgment mLoginFrgment);
+
 }

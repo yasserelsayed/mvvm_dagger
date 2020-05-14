@@ -24,4 +24,7 @@ public interface TripDao {
 
     @Delete
     void delete(Tripdb mTrip);
+
+    @Query("DELETE FROM trip")
+    void reset();
 }

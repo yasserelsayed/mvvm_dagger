@@ -13,7 +13,7 @@ import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.Trip;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.base.views.PagerAdapter;
-import com.example.travellernotebook.ui.profile.views.ProfileFrgment;
+import com.example.travellernotebook.ui.user.views.UserFrgment;
 import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
 import com.example.travellernotebook.ui.trip.viewModels.TripViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -102,7 +102,7 @@ public class HomeFrgment extends Fragment{
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.mnuProfile:
-                mMainActivity.transitionToFragment(new ProfileFrgment());
+                mMainActivity.transitionToFragment(new UserFrgment());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

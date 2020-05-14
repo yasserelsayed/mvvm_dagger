@@ -2,12 +2,12 @@ package com.example.travellernotebook.di.modules;
 
 import android.content.Context;
 
-import com.example.travellernotebook.data.AuthenticationRepository;
+import com.example.travellernotebook.data.UserRepository;
 import com.example.travellernotebook.data.TripRepository;
 import com.example.travellernotebook.data.database.AppDatabase;
 import com.example.travellernotebook.data.preferences.UserPreference;
 import com.example.travellernotebook.di.scope.MainScope;
-import com.example.travellernotebook.ui.profile.ProfileViewModelsFactory;
+import com.example.travellernotebook.ui.user.UserViewModelsFactory;
 import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -38,14 +38,14 @@ public class MainModule {
 
     @Provides
     @MainScope
-    public AuthenticationRepository provideAuthenticationRepository(Context mContext, UserPreference mUserPreference) {
-        return new AuthenticationRepository(mContext,mUserPreference);
+    public UserRepository provideAuthenticationRepository(Context mContext, UserPreference mUserPreference,AppDatabase mAppDatabase) {
+        return new UserRepository(mContext,mUserPreference,mAppDatabase);
     }
 
 
     @Provides
     @MainScope
-    public ProfileViewModelsFactory provideProfileViewModelsFactory(AuthenticationRepository mAuthenticationRepository) {
-        return new ProfileViewModelsFactory(mAuthenticationRepository);
+    public UserViewModelsFactory provideProfileViewModelsFactory(UserRepository mUserRepository) {
+        return new UserViewModelsFactory(mUserRepository);
     }
 }

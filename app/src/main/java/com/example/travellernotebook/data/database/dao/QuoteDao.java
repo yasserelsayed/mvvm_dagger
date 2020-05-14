@@ -21,4 +21,7 @@ public interface QuoteDao {
 
     @Delete
     void delete(Quotedb mQuote);
+
+    @Query("DELETE FROM quote")
+    void reset();
 }

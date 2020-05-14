@@ -24,4 +24,7 @@ public interface LocationDao {
 
     @Delete
     void delete(Locationdb mLocation);
+
+    @Query("DELETE FROM location")
+    void reset();
 }

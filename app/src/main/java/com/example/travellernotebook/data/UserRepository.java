@@ -1,7 +1,9 @@
 package com.example.travellernotebook.data;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
+import com.example.travellernotebook.data.database.AppDatabase;
 import com.example.travellernotebook.data.preferences.UserPreference;
 import com.example.travellernotebook.domain.User;
 import com.example.travellernotebook.util.Constants;
@@ -9,16 +11,19 @@ import com.example.travellernotebook.util.Constants;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-public class AuthenticationRepository {
+public class UserRepository {
     UserPreference mUserPreference;
     Context mContext;
 
     MutableLiveData<User> userDatasource;
+    AppDatabase mAppDatabase;
 
-    public AuthenticationRepository(Context mContext, UserPreference mUserPreference) {
+    public UserRepository(Context mContext,
+                          UserPreference mUserPreference, AppDatabase mAppDatabase) {
         this.mUserPreference = mUserPreference;
         this.mContext = mContext;
         userDatasource = new MutableLiveData<>();
+        this.mAppDatabase = mAppDatabase;
     }
 
     public void updateUserProfile(User mUser){
@@ -31,7 +36,7 @@ public class AuthenticationRepository {
         if(validateUserInfo(mUser.getPhone()))
             mUserPreference.setUserInfo(mContext, Constants.KeyPhone,mUser.getPhone());
         else mUserPreference.setUserInfo(mContext, Constants.KeyPhone,"");
-        if(validateUserInfo(mUser.getUserName()))
+        if(validateUserInfo(mUser.getPassword()))
             mUserPreference.setUserInfo(mContext, Constants.KeyPassword,mUser.getPassword());
         else mUserPreference.setUserInfo(mContext, Constants.KeyPassword,"");
         if(validateUserInfo(mUser.getUserName()))
@@ -39,9 +44,30 @@ public class AuthenticationRepository {
         else mUserPreference.setUserInfo(mContext, Constants.KeyUserName,"");
     }
 
+    public void resetApp(){
+        mUserPreference.setUserInfo(mContext, Constants.KeyUserPhoto,"");
+        mUserPreference.setUserInfo(mContext, Constants.KeyEmail,"");
+        mUserPreference.setUserInfo(mContext, Constants.KeyPhone,"");
+        mUserPreference.setUserInfo(mContext, Constants.KeyPassword,"");
+        mUserPreference.setUserInfo(mContext, Constants.KeyUserName,"");
+
+        new AsyncTask<Void,Void,Void>(){
+            @Override
+            protected Void doInBackground(Void... voids) {
+               mAppDatabase.mediaDao().reset();
+               mAppDatabase.quoteDao().reset();
+               mAppDatabase.activityDao().reset();
+               mAppDatabase.locationDao().reset();
+               mAppDatabase.tripDao().reset();
+                return null;
+            }
+        }.execute();
+    }
+
 
     public LiveData<User> getUserProfile(){
         User mUser = new User();
+        mUser.setPassword(mUserPreference.getUserInfo(mContext,Constants.KeyPassword));
         mUser.setUserName(mUserPreference.getUserInfo(mContext,Constants.KeyUserName));
         mUser.setPhone(mUserPreference.getUserInfo(mContext,Constants.KeyPhone));
         mUser.setEmail(mUserPreference.getUserInfo(mContext,Constants.KeyEmail));

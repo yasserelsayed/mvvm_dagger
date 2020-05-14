@@ -24,4 +24,7 @@ public interface ActivityDao {
 
     @Delete
     void delete(Activitydb mActivity);
+
+    @Query("DELETE FROM activity")
+    void reset();
 }

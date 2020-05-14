@@ -5,7 +5,7 @@
     <string name="txt_phone">Phone</string>
     <string name="txt_email">Email</string>
     <string name="txt_user_name">UserName</string>
-
+    <string name="txt_reset">Reset</string>
     <string name="txt_name">Name</string>
     <string name="txt_add_location">Add Location</string>
     <string name="txt_start_date">Start Date</string>
@@ -22,9 +22,12 @@
     <string name="txt_total">Total</string>
     <string name="txt_upcoming">Upcoming</string>
     <string name="msg_this_field_required">this field required</string>
+    <string name="msg_auth_error">authentication error</string>
     <string name="msg_location_budget_invalid">Location budget has to be less than trip budget </string>
     <string name="msg_dates_error">End date has to be after start date</string>
     <string name="txt_location_activities">Location Activities</string>
+    <string name="txt_login">LOGIN</string>
+    <string name="msg_login_with_biometric">Log in using your biometric credential</string>
 
     <string name="maps_api_key">AIzaSyCfAiZPLV5twQ8NE-tfRtIQIozOLqjZmnE</string>
 </resources>
