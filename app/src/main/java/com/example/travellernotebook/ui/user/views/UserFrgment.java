@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.User;
 import com.example.travellernotebook.ui.base.MainActivity;
+import com.example.travellernotebook.ui.base.MainFragment;
 import com.example.travellernotebook.ui.user.UserViewModelsFactory;
 import com.example.travellernotebook.ui.user.viewModels.UserViewModel;
 
@@ -36,7 +37,7 @@ import butterknife.ButterKnife;
 
 import static android.app.Activity.RESULT_OK;
 
-public class UserFrgment extends Fragment implements View.OnClickListener{
+public class UserFrgment extends MainFragment implements View.OnClickListener{
 
     @Inject
     UserViewModelsFactory mUserViewModelsFactory;

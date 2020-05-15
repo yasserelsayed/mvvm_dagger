@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.Trip;
 import com.example.travellernotebook.ui.base.MainActivity;
+import com.example.travellernotebook.ui.base.MainFragment;
 import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
 import com.example.travellernotebook.ui.trip.viewModels.TripViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -34,7 +35,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import butterknife.ButterKnife;
 
-public class TripsMapFrgment extends Fragment implements OnMapReadyCallback {
+public class TripsMapFrgment extends MainFragment implements OnMapReadyCallback {
 
     @Inject
     TripViewModelsFactory mTripViewModelsFactory;

@@ -14,6 +14,7 @@ import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.Activity;
 import com.example.travellernotebook.domain.Quote;
 import com.example.travellernotebook.ui.base.MainActivity;
+import com.example.travellernotebook.ui.base.MainFragment;
 import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
 import com.example.travellernotebook.ui.trip.viewModels.ActivityViewModel;
 import com.example.travellernotebook.ui.trip.views.adapters.ActivitesAdapter;
@@ -25,7 +26,6 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,7 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ActivitiesListFrgment extends Fragment {
+public class ActivitiesListFrgment extends MainFragment {
 
     @Inject
     TripViewModelsFactory mTripViewModelsFactory;

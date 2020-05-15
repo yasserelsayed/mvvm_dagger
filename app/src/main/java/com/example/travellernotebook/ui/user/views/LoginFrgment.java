@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.User;
 import com.example.travellernotebook.ui.base.MainActivity;
+import com.example.travellernotebook.ui.base.MainFragment;
 import com.example.travellernotebook.ui.trip.views.HomeFrgment;
 import com.example.travellernotebook.ui.user.UserViewModelsFactory;
 import com.example.travellernotebook.ui.user.viewModels.UserViewModel;
@@ -32,7 +33,7 @@ import androidx.lifecycle.ViewModelProvider;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginFrgment extends Fragment implements View.OnClickListener {
+public class LoginFrgment extends MainFragment implements View.OnClickListener {
 
     @Inject
     UserViewModelsFactory mUserViewModelsFactory;

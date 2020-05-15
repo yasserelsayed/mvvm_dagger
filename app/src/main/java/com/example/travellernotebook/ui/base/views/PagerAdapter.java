@@ -1,5 +1,7 @@
 package com.example.travellernotebook.ui.base.views;
 
+import com.example.travellernotebook.ui.base.MainFragment;
+
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -9,9 +11,9 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
-    List<Fragment> lstFragment;
+    List<MainFragment> lstFragment;
 
-    public PagerAdapter(@NonNull FragmentManager fm, List<Fragment> lst) {
+    public PagerAdapter(@NonNull FragmentManager fm, List<MainFragment> lst) {
         super(fm);
         this.lstFragment = lst;
     }
@@ -31,8 +33,6 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        if(position==0)
-        return "list";
-        else return "map";
+        return lstFragment.get(position).getScreenTitle();
     }
 }

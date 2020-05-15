@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.TripLocation;
 import com.example.travellernotebook.ui.base.MainActivity;
+import com.example.travellernotebook.ui.base.MainFragment;
 import com.example.travellernotebook.ui.base.views.LocationPickerFragment;
 import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
 import com.example.travellernotebook.ui.trip.viewModels.LocationViewModel;
@@ -37,7 +38,7 @@ import butterknife.ButterKnife;
 
 import static android.app.Activity.RESULT_OK;
 
-public class LocationFrgment extends Fragment implements    View.OnClickListener{
+public class LocationFrgment extends MainFragment implements    View.OnClickListener{
 
     @Inject
     TripViewModelsFactory mTripViewModelsFactory;

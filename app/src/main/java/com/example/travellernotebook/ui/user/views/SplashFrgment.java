@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.User;
 import com.example.travellernotebook.ui.base.MainActivity;
+import com.example.travellernotebook.ui.base.MainFragment;
 import com.example.travellernotebook.ui.user.UserViewModelsFactory;
 import com.example.travellernotebook.ui.user.viewModels.UserViewModel;
 import com.example.travellernotebook.ui.trip.views.HomeFrgment;
@@ -20,7 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-public class SplashFrgment extends Fragment  {
+public class SplashFrgment extends MainFragment {
 
     @Inject
     UserViewModelsFactory mUserViewModelsFactory;

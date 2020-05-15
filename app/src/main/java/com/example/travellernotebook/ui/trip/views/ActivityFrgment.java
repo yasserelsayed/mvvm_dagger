@@ -10,6 +10,7 @@ import android.widget.EditText;
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.Activity;
 import com.example.travellernotebook.ui.base.MainActivity;
+import com.example.travellernotebook.ui.base.MainFragment;
 import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
 import com.example.travellernotebook.ui.trip.viewModels.ActivityViewModel;
 import javax.inject.Inject;
@@ -21,7 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ActivityFrgment extends Fragment implements    View.OnClickListener{
+public class ActivityFrgment extends MainFragment implements    View.OnClickListener{
 
     @Inject
     TripViewModelsFactory mTripViewModelsFactory;

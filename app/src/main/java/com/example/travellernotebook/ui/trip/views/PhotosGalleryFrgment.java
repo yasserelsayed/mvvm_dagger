@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.Media;
 import com.example.travellernotebook.ui.base.MainActivity;
+import com.example.travellernotebook.ui.base.MainFragment;
 import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
 import com.example.travellernotebook.ui.trip.viewModels.MediaViewModel;
 import com.example.travellernotebook.ui.trip.views.adapters.MediaAdapter;
@@ -35,7 +36,7 @@ import butterknife.ButterKnife;
 
 import static android.app.Activity.RESULT_OK;
 
-public class PhotosGalleryFrgment extends Fragment{
+public class PhotosGalleryFrgment extends MainFragment {
 
     @Inject
     TripViewModelsFactory mTripViewModelsFactory;

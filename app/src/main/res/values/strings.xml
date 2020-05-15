@@ -18,6 +18,9 @@
     <string name="txt_shared_trips">Shared trips</string>
     <string name="txt_from">From</string>
     <string name="txt_to">To</string>
+    <string name="txt_media">Media</string>
+    <string name="txt_list">List</string>
+    <string name="txt_map">Map</string>
     <string name="txt_add_new_activity">Add new activity .....</string>
     <string name="txt_total">Total</string>
     <string name="txt_upcoming">Upcoming</string>

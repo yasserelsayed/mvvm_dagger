@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.ui.base.MainActivity;
+import com.example.travellernotebook.ui.base.MainFragment;
 import com.example.travellernotebook.ui.base.views.PagerAdapter;
 import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
 import com.example.travellernotebook.ui.trip.viewModels.TripViewModel;
@@ -30,7 +31,7 @@ import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LocationsHomeFrgment extends Fragment{
+public class LocationsHomeFrgment extends MainFragment {
 
     MainActivity mMainActivity;
     @BindView(R.id.pager)
@@ -58,9 +59,13 @@ public class LocationsHomeFrgment extends Fragment{
         mMainActivity.getSupportActionBar().setDisplayShowHomeEnabled(true);
         mMainActivity.mMainActivityComponent.inject(this);
         mTripViewModel = new ViewModelProvider(mMainActivity,mTripViewModelsFactory).get(TripViewModel.class);
-        List<Fragment> lst = new ArrayList<>();
-        lst.add(new LocationsListFrgment());
-        lst.add(new LocationsMapFrgment());
+        List<MainFragment> lst = new ArrayList<>();
+        MainFragment mMainFragment = new LocationsListFrgment();
+        mMainFragment.setScreenTitle(getString(R.string.txt_list));
+        lst.add(mMainFragment);
+         mMainFragment = new LocationsMapFrgment();
+        mMainFragment.setScreenTitle(getString(R.string.txt_map));
+        lst.add(mMainFragment);
         setHasOptionsMenu(true);
         PagerAdapter mPagerAdapter = new PagerAdapter(getChildFragmentManager(),lst);
         pager.setAdapter(mPagerAdapter);
