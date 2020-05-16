@@ -1,4 +1,4 @@
-package com.example.travellernotebook.ui.trip.views;
+package com.example.travellernotebook.ui.locationActivities;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -17,12 +17,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.travellernotebook.R;
-import com.example.travellernotebook.domain.TripLocation;
+import com.example.travellernotebook.domain.Location;
+import com.example.travellernotebook.factory.LocationActivityFactory;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.base.MainFragment;
 import com.example.travellernotebook.ui.base.views.LocationPickerFragment;
-import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
-import com.example.travellernotebook.ui.trip.viewModels.LocationViewModel;
+import com.example.travellernotebook.ui.locationActivities.viewModels.LocationViewModel;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Calendar;
@@ -31,7 +31,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,7 +40,7 @@ import static android.app.Activity.RESULT_OK;
 public class LocationFrgment extends MainFragment implements    View.OnClickListener{
 
     @Inject
-    TripViewModelsFactory mTripViewModelsFactory;
+    LocationActivityFactory mLocationActivityFactory;
     LocationViewModel mLocationViewModel;
     Calendar mCalendar;
 
@@ -62,10 +61,10 @@ public class LocationFrgment extends MainFragment implements    View.OnClickList
     MainActivity mMainActivity;
 
     DatePickerDialog datePicker;
-    TripLocation mTripLocation;
+    Location mLocation;
     public LocationFrgment()
     {
-        mTripLocation = new TripLocation();
+        mLocation = new Location();
     }
 
     @Override
@@ -75,7 +74,7 @@ public class LocationFrgment extends MainFragment implements    View.OnClickList
         if (requestCode == 11 && resultCode == RESULT_OK && null != data) {
             Uri imageUri = data.getData();
             try {
-                mTripLocation.setMainPhoto(imageUri.toString());
+                mLocation.setMainPhoto(imageUri.toString());
                 InputStream imageStream  = mMainActivity.getContentResolver().openInputStream(imageUri);
                 final Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
                 RoundedBitmapDrawable roundedBitmapDrawable= RoundedBitmapDrawableFactory.create(getResources(), bitmap);
@@ -93,12 +92,12 @@ public class LocationFrgment extends MainFragment implements    View.OnClickList
     @Override
     public void onResume() {
         super.onResume();
-        if(mTripLocation.getLocationAddress()!=null)
-            txtLocation.setText(mTripLocation.getLocationAddress());
+        if(mLocation.getLocationAddress()!=null)
+            txtLocation.setText(mLocation.getLocationAddress());
 
-        if(mTripLocation.getMainPhoto()!=null && !mTripLocation.getMainPhoto().isEmpty()){
+        if(mLocation.getMainPhoto()!=null && !mLocation.getMainPhoto().isEmpty()){
             try {
-                InputStream imageStream  = mMainActivity.getContentResolver().openInputStream(Uri.parse(mTripLocation.getMainPhoto()));
+                InputStream imageStream  = mMainActivity.getContentResolver().openInputStream(Uri.parse(mLocation.getMainPhoto()));
                 Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
                 RoundedBitmapDrawable roundedBitmapDrawable= RoundedBitmapDrawableFactory.create(getResources(), bitmap);
                 roundedBitmapDrawable.setCircular(true);
@@ -120,10 +119,7 @@ public class LocationFrgment extends MainFragment implements    View.OnClickList
         mCalendar = Calendar.getInstance();
         mMainActivity = ((MainActivity) getActivity());
         mMainActivity.mMainActivityComponent.inject(this);
-        mLocationViewModel = new ViewModelProvider(this,mTripViewModelsFactory).get(LocationViewModel.class);
-
-        if(mMainActivity.activeTrip!=null)
-            mTripLocation.setParentId(mMainActivity.activeTrip.getId());
+        mLocationViewModel = new ViewModelProvider(this, mLocationActivityFactory).get(LocationViewModel.class);
 
         int month = mCalendar.get(Calendar.MONTH);
         int day = mCalendar.get(Calendar.DAY_OF_MONTH);
@@ -132,11 +128,17 @@ public class LocationFrgment extends MainFragment implements    View.OnClickList
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 mCalendar.set(datePicker.getYear(),datePicker.getMonth(),datePicker.getDayOfMonth());
-                mTripLocation.setStartDate(mCalendar.getTime());
-                txtDate.setText(mTripLocation.getStartDate());
+                mLocation.setStartDate(mCalendar.getTime());
+                txtDate.setText(mLocation.getStartDate());
             }
         },year,month,day);
-        txtDate.setText(mTripLocation.getStartDate());
+
+        if(mMainActivity.activeTrip!=null) {
+            mLocation.setParentId(mMainActivity.activeTrip.getId());
+            datePicker.getDatePicker().setMinDate(mMainActivity.activeTrip.getStartDateDate().getTime());
+            datePicker.getDatePicker().setMaxDate(mMainActivity.activeTrip.getEndDateDate().getTime());
+        }
+        txtDate.setText(mLocation.getStartDate());
         txtDate.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
         imgLocationMain.setOnClickListener(this);
@@ -159,16 +161,16 @@ public class LocationFrgment extends MainFragment implements    View.OnClickList
                 startActivityForResult(mIntent, 11);
                 break;
             }case R.id.txtLocation:{
-                mMainActivity.transitionToFragment(new LocationPickerFragment(mTripLocation));
+                mMainActivity.transitionToFragment(new LocationPickerFragment(mLocation));
                 break;
             }case R.id.btnSubmit: {
                 if (validate()) {
-                    mTripLocation.setLocationName(edtLocationName.getText().toString());
+                    mLocation.setLocationName(edtLocationName.getText().toString());
                     if (edtBudget.getText().toString() == null || edtBudget.getText().toString().isEmpty())
-                        mTripLocation.setBudget(0.0);
+                        mLocation.setBudget(0.0);
                     else
-                        mTripLocation.setBudget(Double.parseDouble(edtBudget.getText().toString()));
-                    mLocationViewModel.addTripLocation(mTripLocation);
+                        mLocation.setBudget(Double.parseDouble(edtBudget.getText().toString()));
+                    mLocationViewModel.addTripLocation(mLocation);
                     mMainActivity.onBackPressed();
                 }
                 break;
@@ -191,7 +193,7 @@ public class LocationFrgment extends MainFragment implements    View.OnClickList
             res = false;
         }
 
-        if(mTripLocation.getLocationAddress()==null || mTripLocation.getLocationAddress().isEmpty()) {
+        if(mLocation.getLocationAddress()==null || mLocation.getLocationAddress().isEmpty()) {
             txtLocation.setError(getString(R.string.msg_this_field_required));
             txtLocation.requestFocus();
             res = false;

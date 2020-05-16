@@ -1,4 +1,4 @@
-package com.example.travellernotebook.ui.trip.views.adapters;
+package com.example.travellernotebook.ui.locationActivities;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,9 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.travellernotebook.R;
-import com.example.travellernotebook.domain.TripLocation;
+import com.example.travellernotebook.domain.Location;
 import com.example.travellernotebook.ui.base.MainActivity;
-import com.example.travellernotebook.ui.trip.views.LocationActivitiesFrgment;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -25,10 +24,10 @@ import androidx.recyclerview.widget.RecyclerView;
 public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.AdapterHolder> {
 
 
-    List<TripLocation> Datasource;
+    List<Location> Datasource;
     MainActivity mMainActivity;
 
-    public LocationsAdapter(List<TripLocation> datasource) {
+    public LocationsAdapter(List<Location> datasource) {
         Datasource = datasource;
     }
 
@@ -43,20 +42,20 @@ public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.Adap
 
     @Override
     public void onBindViewHolder(@NonNull AdapterHolder holder, int position) {
-        TripLocation mTripLocationp = Datasource.get(position);
-        holder.txtLocationName.setText(mTripLocationp.getLocationName());
-        holder.txtBudget.setText(mTripLocationp.getBudget().toString() + " $");
-        holder.txtDate.setText(mTripLocationp.getStartDate());
+        Location mLocationp = Datasource.get(position);
+        holder.txtLocationName.setText(mLocationp.getLocationName());
+        holder.txtBudget.setText(mLocationp.getBudget().toString() + " $");
+        holder.txtDate.setText(mLocationp.getStartDate());
         holder.constContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMainActivity.activeTripLocation = mTripLocationp;
+                mMainActivity.activeLocation = mLocationp;
                 mMainActivity.transitionToFragment(new LocationActivitiesFrgment());
             }
         });
-        if(mTripLocationp.getMainPhoto()!=null) {
+        if(mLocationp.getMainPhoto()!=null) {
             try {
-                InputStream imageStream  = mMainActivity.getContentResolver().openInputStream(Uri.parse(mTripLocationp.getMainPhoto()));
+                InputStream imageStream  = mMainActivity.getContentResolver().openInputStream(Uri.parse(mLocationp.getMainPhoto()));
                 Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
                 holder.imgLocationMain.setImageBitmap(bitmap);
             } catch (FileNotFoundException e) {

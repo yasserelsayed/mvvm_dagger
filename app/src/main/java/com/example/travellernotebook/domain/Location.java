@@ -7,7 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class TripLocation implements Serializable {
+public class Location implements Serializable {
     int id;
     String locationName;
     Double latitude;
@@ -21,7 +21,7 @@ public class TripLocation implements Serializable {
     SimpleDateFormat mSimpleDateFormat;
     Date mDate;
     Date mToday;
-    public TripLocation(Locationdb mLocationdb){
+    public Location(Locationdb mLocationdb){
         this.id = mLocationdb.dbid;
         this.locationName = mLocationdb.locationName;
         this.latitude = Double.parseDouble(mLocationdb.latitude);
@@ -38,7 +38,7 @@ public class TripLocation implements Serializable {
         mToday = new Date();
     }
 
-    public TripLocation(){
+    public Location(){
         mSimpleDateFormat= new SimpleDateFormat("dd/MM/yyyy");
         mDate = new Date();
         startDate = mDate;

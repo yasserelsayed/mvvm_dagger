@@ -2,19 +2,19 @@ package com.example.travellernotebook.di.components;
 
 import com.example.travellernotebook.di.modules.MainModule;
 import com.example.travellernotebook.di.scope.MainScope;
-import com.example.travellernotebook.ui.user.views.LoginFrgment;
-import com.example.travellernotebook.ui.user.views.SplashFrgment;
-import com.example.travellernotebook.ui.user.views.UserFrgment;
-import com.example.travellernotebook.ui.trip.views.ActivitiesListFrgment;
-import com.example.travellernotebook.ui.trip.views.ActivityFrgment;
-import com.example.travellernotebook.ui.trip.views.HomeFrgment;
-import com.example.travellernotebook.ui.trip.views.LocationActivitiesFrgment;
-import com.example.travellernotebook.ui.trip.views.LocationFrgment;
-import com.example.travellernotebook.ui.trip.views.LocationsHomeFrgment;
-import com.example.travellernotebook.ui.trip.views.LocationsListFrgment;
-import com.example.travellernotebook.ui.trip.views.PhotosGalleryFrgment;
-import com.example.travellernotebook.ui.trip.views.TripFrgment;
-import com.example.travellernotebook.ui.trip.views.TripsListFrgment;
+import com.example.travellernotebook.ui.user.LoginFrgment;
+import com.example.travellernotebook.ui.user.SplashFrgment;
+import com.example.travellernotebook.ui.user.UserFrgment;
+import com.example.travellernotebook.ui.locationActivities.ActivitiesListFrgment;
+import com.example.travellernotebook.ui.locationActivities.ActivityFrgment;
+import com.example.travellernotebook.ui.trip.HomeFrgment;
+import com.example.travellernotebook.ui.locationActivities.LocationActivitiesFrgment;
+import com.example.travellernotebook.ui.locationActivities.LocationFrgment;
+import com.example.travellernotebook.ui.locationActivities.LocationsHomeFrgment;
+import com.example.travellernotebook.ui.locationActivities.LocationsListFrgment;
+import com.example.travellernotebook.ui.locationActivities.PhotosGalleryFrgment;
+import com.example.travellernotebook.ui.trip.TripFrgment;
+import com.example.travellernotebook.ui.trip.TripsListFrgment;
 
 import dagger.Component;
 

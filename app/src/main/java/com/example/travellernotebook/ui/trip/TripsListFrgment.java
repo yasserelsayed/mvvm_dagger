@@ -1,4 +1,4 @@
-package com.example.travellernotebook.ui.trip.views;
+package com.example.travellernotebook.ui.trip;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -7,12 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.travellernotebook.R;
-import com.example.travellernotebook.domain.TripLocation;
+import com.example.travellernotebook.domain.Trip;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.base.MainFragment;
-import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
-import com.example.travellernotebook.ui.trip.viewModels.LocationViewModel;
-import com.example.travellernotebook.ui.trip.views.adapters.LocationsAdapter;
+import com.example.travellernotebook.factory.TripFactory;
+import com.example.travellernotebook.ui.trip.viewModels.TripViewModel;
 
 import java.util.List;
 
@@ -20,7 +19,6 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -28,13 +26,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LocationsListFrgment extends MainFragment {
+public class TripsListFrgment extends MainFragment {
 
     @Inject
-    TripViewModelsFactory mTripViewModelsFactory;
+    TripFactory mTripFactory;
 
     @BindView(R.id.rclItems)
-    RecyclerView rclLocations;
+    RecyclerView rclTrips;
     MainActivity mMainActivity;
 
     @SuppressLint("RestrictedApi")
@@ -51,17 +49,15 @@ public class LocationsListFrgment extends MainFragment {
          ButterKnife.bind(this,mView);
          mMainActivity =((MainActivity) getActivity());
         mMainActivity.mMainActivityComponent.inject(this);
-        LocationViewModel mLocationViewModel = new ViewModelProvider(mMainActivity,mTripViewModelsFactory).get(LocationViewModel.class);
-        if(mMainActivity.activeTrip!=null) {
-            mLocationViewModel.getAllLocations(mMainActivity.activeTrip.getId()).observe(getViewLifecycleOwner(), new Observer<List<TripLocation>>() {
-                @Override
-                public void onChanged(List<TripLocation> locations) {
-                    LocationsAdapter mLocationsAdapter = new LocationsAdapter(locations);
-                    rclLocations.setLayoutManager(new LinearLayoutManager(mMainActivity));
-                    rclLocations.setAdapter(mLocationsAdapter);
-                }
-            });
-        }
+        TripViewModel mTripViewModel = new ViewModelProvider(mMainActivity, mTripFactory).get(TripViewModel.class);
+        mTripViewModel.getAllTrips().observe(getViewLifecycleOwner(), new Observer<List<Trip>>() {
+            @Override
+            public void onChanged(List<Trip> trips) {
+                TripsAdapter mTripsAdapter = new TripsAdapter(trips);
+                rclTrips.setLayoutManager(new LinearLayoutManager(mMainActivity));
+                rclTrips.setAdapter(mTripsAdapter);
+            }
+        });
         return mView;
     }
 }

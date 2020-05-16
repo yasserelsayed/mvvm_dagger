@@ -16,7 +16,7 @@ import android.widget.Button;
 
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.Trip;
-import com.example.travellernotebook.domain.TripLocation;
+import com.example.travellernotebook.domain.Location;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -56,7 +56,7 @@ public class LocationPickerFragment extends Fragment  implements OnMapReadyCallb
     MainActivity mMainActivity;
     Geocoder mGeocoder;
     Trip mTrip;
-    TripLocation mTripLocation;
+    Location mLocation;
     @BindView(R.id.btnSubmit)
     Button btnSubmit;
 
@@ -67,10 +67,10 @@ public class LocationPickerFragment extends Fragment  implements OnMapReadyCallb
         else mCurrenjtLatLng = new LatLng(-34, 151);
     }
 
-    public LocationPickerFragment(TripLocation mTripLocation){
-        this.mTripLocation = mTripLocation;
-        if(mTripLocation.getLatitude()!=null && mTripLocation.getLatitude()>0)
-            mCurrenjtLatLng = new LatLng(mTripLocation.getLatitude(),mTripLocation.getLongitude());
+    public LocationPickerFragment(Location mLocation){
+        this.mLocation = mLocation;
+        if(mLocation.getLatitude()!=null && mLocation.getLatitude()>0)
+            mCurrenjtLatLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
         else mCurrenjtLatLng = new LatLng(-34, 151);
     }
 
@@ -114,15 +114,15 @@ public class LocationPickerFragment extends Fragment  implements OnMapReadyCallb
                     if(addresses.size() > 0) {
                         if(mTrip!=null)
                         mTrip.setLocationName(addresses.get(0).getLocality());
-                        else if(mTripLocation!=null)
-                            mTripLocation.setLocationAddress(addresses.get(0).getLocality());
+                        else if(mLocation !=null)
+                            mLocation.setLocationAddress(addresses.get(0).getLocality());
                     }
                     if(mTrip!=null) {
                         mTrip.setLatitude(mCurrenjtLatLng.latitude);
                         mTrip.setLongitude(mCurrenjtLatLng.longitude);
-                    }else if(mTripLocation!=null){
-                        mTripLocation.setLatitude(mCurrenjtLatLng.latitude);
-                        mTripLocation.setLongitude(mCurrenjtLatLng.longitude);
+                    }else if(mLocation !=null){
+                        mLocation.setLatitude(mCurrenjtLatLng.latitude);
+                        mLocation.setLongitude(mCurrenjtLatLng.longitude);
                     }
                         mMainActivity.onBackPressed();
                 } catch (IOException e) {

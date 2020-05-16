@@ -1,4 +1,4 @@
-package com.example.travellernotebook.ui.trip.views;
+package com.example.travellernotebook.ui.locationActivities;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,14 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.travellernotebook.R;
+import com.example.travellernotebook.factory.LocationActivityFactory;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.base.MainFragment;
 import com.example.travellernotebook.ui.base.views.PagerAdapter;
-import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
-import com.example.travellernotebook.ui.trip.viewModels.ActivityViewModel;
-import com.example.travellernotebook.ui.trip.viewModels.LocationViewModel;
-import com.example.travellernotebook.ui.trip.viewModels.TripViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.travellernotebook.factory.TripFactory;
+import com.example.travellernotebook.ui.locationActivities.viewModels.LocationViewModel;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -27,7 +25,6 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
@@ -41,7 +38,7 @@ public class LocationActivitiesFrgment extends MainFragment {
     @BindView(R.id.scrnTabs)
     TabLayout scrnTabs;
     @Inject
-    TripViewModelsFactory mTripViewModelsFactory;
+    LocationActivityFactory mLocationActivityFactory;
     LocationViewModel mLocationViewModel;
 
 
@@ -57,7 +54,7 @@ public class LocationActivitiesFrgment extends MainFragment {
         mMainActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mMainActivity.getSupportActionBar().setDisplayShowHomeEnabled(true);
         mMainActivity.mMainActivityComponent.inject(this);
-        mLocationViewModel = new ViewModelProvider(mMainActivity,mTripViewModelsFactory).get(LocationViewModel.class);
+        mLocationViewModel = new ViewModelProvider(mMainActivity, mLocationActivityFactory).get(LocationViewModel.class);
         List<MainFragment> lst = new ArrayList<>();
         MainFragment mMainFragment = new ActivitiesListFrgment();
         mMainFragment.setScreenTitle(getString(R.string.txt_list));
@@ -83,8 +80,13 @@ public class LocationActivitiesFrgment extends MainFragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.mnuRemove: {
-                if (mMainActivity.activeTripLocation != null)
-                    mLocationViewModel.removeTripLocation(mMainActivity.activeTripLocation);
+                if (mMainActivity.activeLocation != null) {
+                    mLocationViewModel.removeTripLocation(mMainActivity.activeLocation);
+                }
+                mMainActivity.onBackPressed();
+                return true;
+            }
+            case android.R.id.home : {
                 mMainActivity.onBackPressed();
                 return true;
             }

@@ -1,4 +1,4 @@
-package com.example.travellernotebook.ui.trip.views;
+package com.example.travellernotebook.ui.locationActivities;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.travellernotebook.R;
+import com.example.travellernotebook.factory.LocationActivityFactory;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.base.MainFragment;
 import com.example.travellernotebook.ui.base.views.PagerAdapter;
-import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
 import com.example.travellernotebook.ui.trip.viewModels.TripViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -25,7 +25,6 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
@@ -41,7 +40,7 @@ public class LocationsHomeFrgment extends MainFragment {
     @BindView(R.id.btnAdd)
     FloatingActionButton btnAdd;
     @Inject
-    TripViewModelsFactory mTripViewModelsFactory;
+    LocationActivityFactory mLocationActivityFactory;
     TripViewModel mTripViewModel;
 
 
@@ -58,7 +57,7 @@ public class LocationsHomeFrgment extends MainFragment {
         mMainActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mMainActivity.getSupportActionBar().setDisplayShowHomeEnabled(true);
         mMainActivity.mMainActivityComponent.inject(this);
-        mTripViewModel = new ViewModelProvider(mMainActivity,mTripViewModelsFactory).get(TripViewModel.class);
+        mTripViewModel = new ViewModelProvider(mMainActivity, mLocationActivityFactory).get(TripViewModel.class);
         List<MainFragment> lst = new ArrayList<>();
         MainFragment mMainFragment = new LocationsListFrgment();
         mMainFragment.setScreenTitle(getString(R.string.txt_list));
@@ -96,7 +95,10 @@ public class LocationsHomeFrgment extends MainFragment {
                 mMainActivity.onBackPressed();
                 return true;
             }
-            default:
+            case android.R.id.home : {
+                mMainActivity.onBackPressed();
+                return true;
+            }default:
                 return super.onOptionsItemSelected(item);
         }
 

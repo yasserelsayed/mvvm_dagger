@@ -1,4 +1,4 @@
-package com.example.travellernotebook.ui.trip.views;
+package com.example.travellernotebook.ui.trip;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -12,7 +12,7 @@ import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.Trip;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.base.MainFragment;
-import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
+import com.example.travellernotebook.factory.TripFactory;
 import com.example.travellernotebook.ui.trip.viewModels.TripViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -30,7 +30,6 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import butterknife.ButterKnife;
@@ -38,7 +37,7 @@ import butterknife.ButterKnife;
 public class TripsMapFrgment extends MainFragment implements OnMapReadyCallback {
 
     @Inject
-    TripViewModelsFactory mTripViewModelsFactory;
+    TripFactory mTripFactory;
     GoogleMap mMap;
     SupportMapFragment mapFragment;
     List<Trip> lstTrips;
@@ -50,7 +49,7 @@ public class TripsMapFrgment extends MainFragment implements OnMapReadyCallback 
          ButterKnife.bind(this,mView);
          MainActivity mMainActivity =((MainActivity) getActivity());
         mapFragment  = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-         TripViewModel mTripViewModel = new ViewModelProvider(mMainActivity,mTripViewModelsFactory).get(TripViewModel.class);
+         TripViewModel mTripViewModel = new ViewModelProvider(mMainActivity, mTripFactory).get(TripViewModel.class);
          mTripViewModel.getAllTrips().observe(getViewLifecycleOwner(), new Observer<List<Trip>>() {
               @Override
                public void onChanged(List<Trip> trips) {
@@ -67,6 +66,7 @@ public class TripsMapFrgment extends MainFragment implements OnMapReadyCallback 
             mMap = googleMap;
             mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.map_style));
             BitmapDescriptor markerIcon = getMarkerIconFromDrawable(getResources().getDrawable(R.drawable.ic_marker));
+        mMap.clear();
             for(Trip mTrip:lstTrips)
             mMap.addMarker(new MarkerOptions().position(new LatLng(mTrip.getLatitude(),mTrip.getLongitude())).title(mTrip.getTripName()).icon(markerIcon));
 

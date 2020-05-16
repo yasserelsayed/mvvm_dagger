@@ -1,4 +1,4 @@
-package com.example.travellernotebook.ui.trip.views;
+package com.example.travellernotebook.ui.locationActivities;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -9,11 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.travellernotebook.R;
-import com.example.travellernotebook.domain.TripLocation;
+import com.example.travellernotebook.domain.Location;
+import com.example.travellernotebook.factory.LocationActivityFactory;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.base.MainFragment;
-import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
-import com.example.travellernotebook.ui.trip.viewModels.LocationViewModel;
+import com.example.travellernotebook.ui.locationActivities.viewModels.LocationViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -30,7 +30,6 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import butterknife.ButterKnife;
@@ -38,10 +37,10 @@ import butterknife.ButterKnife;
 public class LocationsMapFrgment extends MainFragment implements OnMapReadyCallback {
 
     @Inject
-    TripViewModelsFactory mTripViewModelsFactory;
+    LocationActivityFactory mLocationActivityFactory;
     GoogleMap mMap;
     SupportMapFragment mapFragment;
-    List<TripLocation> lstLocations;
+    List<Location> lstLocations;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,11 +49,11 @@ public class LocationsMapFrgment extends MainFragment implements OnMapReadyCallb
          ButterKnife.bind(this,mView);
          MainActivity mMainActivity =((MainActivity) getActivity());
         mapFragment  = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        LocationViewModel mLocationViewModel = new ViewModelProvider(mMainActivity,mTripViewModelsFactory).get(LocationViewModel.class);
+        LocationViewModel mLocationViewModel = new ViewModelProvider(mMainActivity, mLocationActivityFactory).get(LocationViewModel.class);
         if(mMainActivity.activeTrip!=null) {
-            mLocationViewModel.getAllLocations(mMainActivity.activeTrip.getId()).observe(getViewLifecycleOwner(), new Observer<List<TripLocation>>() {
+            mLocationViewModel.getAllLocations(mMainActivity.activeTrip.getId()).observe(getViewLifecycleOwner(), new Observer<List<Location>>() {
                 @Override
-                public void onChanged(List<TripLocation> locations) {
+                public void onChanged(List<Location> locations) {
                     lstLocations = locations;
                     mapFragment.getMapAsync(LocationsMapFrgment.this);
                 }
@@ -69,12 +68,13 @@ public class LocationsMapFrgment extends MainFragment implements OnMapReadyCallb
             mMap = googleMap;
             mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.map_style));
             BitmapDescriptor markerIcon = getMarkerIconFromDrawable(getResources().getDrawable(R.drawable.ic_marker));
-            for(TripLocation mTripLocation:lstLocations)
-            mMap.addMarker(new MarkerOptions().position(new LatLng(mTripLocation.getLatitude(),mTripLocation.getLongitude())).title(mTripLocation.getLocationName()).icon(markerIcon));
+            mMap.clear();
+            for(Location mLocation :lstLocations)
+            mMap.addMarker(new MarkerOptions().position(new LatLng(mLocation.getLatitude(), mLocation.getLongitude())).title(mLocation.getLocationName()).icon(markerIcon));
 
             if(lstLocations.size() >0){
-                TripLocation mTripLocation = lstLocations.get(0);
-                LatLng mLatLng =  new LatLng(mTripLocation.getLatitude(),mTripLocation.getLongitude());
+                Location mLocation = lstLocations.get(0);
+                LatLng mLatLng =  new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(mLatLng));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 10));
             }

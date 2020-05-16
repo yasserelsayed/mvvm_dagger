@@ -1,9 +1,7 @@
-package com.example.travellernotebook.ui.trip.views;
+package com.example.travellernotebook.ui.locationActivities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,11 +10,10 @@ import android.view.ViewGroup;
 
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.Media;
+import com.example.travellernotebook.factory.LocationActivityFactory;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.base.MainFragment;
-import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
-import com.example.travellernotebook.ui.trip.viewModels.MediaViewModel;
-import com.example.travellernotebook.ui.trip.views.adapters.MediaAdapter;
+import com.example.travellernotebook.ui.locationActivities.viewModels.MediaViewModel;
 import com.example.travellernotebook.util.ImagePickerBuilderExtended;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nguyenhoanglam.imagepicker.model.Config;
@@ -26,7 +23,6 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -39,7 +35,7 @@ import static android.app.Activity.RESULT_OK;
 public class PhotosGalleryFrgment extends MainFragment {
 
     @Inject
-    TripViewModelsFactory mTripViewModelsFactory;
+    LocationActivityFactory mLocationActivityFactory;
     MediaViewModel mMediaViewModel;
     ImagePickerBuilderExtended mImagePickerBuilderExtended;
     int insuranceBackPicRequestCode = 111;
@@ -62,10 +58,10 @@ public class PhotosGalleryFrgment extends MainFragment {
                 List<com.nguyenhoanglam.imagepicker.model.Image> lstImages = data.getParcelableArrayListExtra(Config.EXTRA_IMAGES);
                 Uri imageUri = Uri.parse("file://" + lstImages.get(0).getPath());
 
-               if(mMainActivity.activeTripLocation !=null) {
+               if(mMainActivity.activeLocation !=null) {
                    Media mMedia = new Media();
                    mMedia.setPath(imageUri.toString());
-                   mMedia.setParent(mMainActivity.activeTripLocation.getId());
+                   mMedia.setParent(mMainActivity.activeLocation.getId());
                    mMediaViewModel.addMediaContent(mMedia);
                }
 
@@ -87,10 +83,10 @@ public class PhotosGalleryFrgment extends MainFragment {
         mMainActivity = ((MainActivity) getActivity());
         mMainActivity.mMainActivityComponent.inject(this);
         mImagePickerBuilderExtended = new ImagePickerBuilderExtended(this);
-        mMediaViewModel = new ViewModelProvider(this,mTripViewModelsFactory).get(MediaViewModel.class);
+        mMediaViewModel = new ViewModelProvider(this, mLocationActivityFactory).get(MediaViewModel.class);
 
-        if(mMainActivity.activeTripLocation!=null) {
-            mMediaViewModel.getAllMediaContents(mMainActivity.activeTripLocation.getId()).observe(getViewLifecycleOwner(), new Observer<List<Media>>() {
+        if(mMainActivity.activeLocation !=null) {
+            mMediaViewModel.getAllMediaContents(mMainActivity.activeLocation.getId()).observe(getViewLifecycleOwner(), new Observer<List<Media>>() {
                 @Override
                 public void onChanged(List<Media> mediaContents) {
                     MediaAdapter mMediaAdapter = new MediaAdapter(mediaContents,mMediaViewModel);

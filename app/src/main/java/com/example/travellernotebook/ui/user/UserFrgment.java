@@ -1,4 +1,4 @@
-package com.example.travellernotebook.ui.user.views;
+package com.example.travellernotebook.ui.user;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,7 +17,7 @@ import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.User;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.base.MainFragment;
-import com.example.travellernotebook.ui.user.UserViewModelsFactory;
+import com.example.travellernotebook.factory.UserFactory;
 import com.example.travellernotebook.ui.user.viewModels.UserViewModel;
 
 import java.io.FileNotFoundException;
@@ -29,7 +29,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import butterknife.BindView;
@@ -40,7 +39,7 @@ import static android.app.Activity.RESULT_OK;
 public class UserFrgment extends MainFragment implements View.OnClickListener{
 
     @Inject
-    UserViewModelsFactory mUserViewModelsFactory;
+    UserFactory mUserFactory;
     MainActivity mMainActivity;
     UserViewModel mUserViewModel;
 
@@ -93,7 +92,7 @@ public class UserFrgment extends MainFragment implements View.OnClickListener{
         ButterKnife.bind(this,mView);
         mMainActivity =((MainActivity) getActivity());
         mMainActivity.mMainActivityComponent.inject(this);
-        mUserViewModel = new ViewModelProvider(mMainActivity, mUserViewModelsFactory).get(UserViewModel.class);
+        mUserViewModel = new ViewModelProvider(mMainActivity, mUserFactory).get(UserViewModel.class);
 
         mUserViewModel.getUserProfile().observe(getViewLifecycleOwner(),new Observer<User>() {
             @Override

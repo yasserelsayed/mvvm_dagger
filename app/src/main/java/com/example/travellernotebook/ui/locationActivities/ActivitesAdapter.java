@@ -1,10 +1,9 @@
-package com.example.travellernotebook.ui.trip.views.adapters;
+package com.example.travellernotebook.ui.locationActivities;
 
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,7 +11,6 @@ import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.Activity;
 import com.example.travellernotebook.domain.Quote;
 import com.example.travellernotebook.ui.base.MainActivity;
-import com.example.travellernotebook.ui.trip.views.ActivitiesListFrgment;
 
 import java.util.List;
 

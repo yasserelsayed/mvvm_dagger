@@ -1,4 +1,4 @@
-package com.example.travellernotebook.ui.trip.views;
+package com.example.travellernotebook.ui.trip;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,8 +14,8 @@ import com.example.travellernotebook.domain.Trip;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.base.MainFragment;
 import com.example.travellernotebook.ui.base.views.PagerAdapter;
-import com.example.travellernotebook.ui.user.views.UserFrgment;
-import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
+import com.example.travellernotebook.ui.user.UserFrgment;
+import com.example.travellernotebook.factory.TripFactory;
 import com.example.travellernotebook.ui.trip.viewModels.TripViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -39,7 +39,7 @@ public class HomeFrgment extends Fragment{
 
     MainActivity mMainActivity;
     @Inject
-    TripViewModelsFactory mTripViewModelsFactory;
+    TripFactory mTripFactory;
     @BindView(R.id.pager)
     ViewPager pager;
     @BindView(R.id.scrnTabs)
@@ -75,7 +75,7 @@ public class HomeFrgment extends Fragment{
         scrnTabs.setupWithViewPager(pager);
         setHasOptionsMenu(true);
         mMainActivity.mMainActivityComponent.inject(this);
-        TripViewModel mTripViewModel = new ViewModelProvider(mMainActivity,mTripViewModelsFactory).get(TripViewModel.class);
+        TripViewModel mTripViewModel = new ViewModelProvider(mMainActivity, mTripFactory).get(TripViewModel.class);
         mTripViewModel.getAllTrips().observe(getViewLifecycleOwner(), new Observer<List<Trip>>() {
             @Override
             public void onChanged(List<Trip> trips) {
@@ -109,12 +109,16 @@ public class HomeFrgment extends Fragment{
             case R.id.mnuProfile:
                 mMainActivity.transitionToFragment(new UserFrgment());
                 return true;
+            case android.R.id.home : {
+                //Title bar back press triggers onBackPressed()
+                mMainActivity.onBackPressed();
+                return true;
+            }
             default:
                 return super.onOptionsItemSelected(item);
         }
 
     }
-
 
 
 }

@@ -1,4 +1,4 @@
-package com.example.travellernotebook.ui.trip.views;
+package com.example.travellernotebook.ui.locationActivities;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -9,15 +9,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.Activity;
+import com.example.travellernotebook.factory.LocationActivityFactory;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.base.MainFragment;
-import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
-import com.example.travellernotebook.ui.trip.viewModels.ActivityViewModel;
+import com.example.travellernotebook.ui.locationActivities.viewModels.ActivityViewModel;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +24,7 @@ import butterknife.ButterKnife;
 public class ActivityFrgment extends MainFragment implements    View.OnClickListener{
 
     @Inject
-    TripViewModelsFactory mTripViewModelsFactory;
+    LocationActivityFactory mLocationActivityFactory;
     ActivityViewModel mActivityViewModel;
 
 
@@ -53,10 +52,10 @@ public class ActivityFrgment extends MainFragment implements    View.OnClickList
         ButterKnife.bind(this,mView);
         mMainActivity = ((MainActivity) getActivity());
         mMainActivity.mMainActivityComponent.inject(this);
-        mActivityViewModel = new ViewModelProvider(this,mTripViewModelsFactory).get(ActivityViewModel.class);
+        mActivityViewModel = new ViewModelProvider(this, mLocationActivityFactory).get(ActivityViewModel.class);
         btnSubmit.setOnClickListener(this);
-        if(mMainActivity.activeTripLocation!=null)
-            mActivity.setParent(mMainActivity.activeTripLocation.getId());
+        if(mMainActivity.activeLocation !=null)
+            mActivity.setParent(mMainActivity.activeLocation.getId());
 
         return mView;
     }

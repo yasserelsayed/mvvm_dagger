@@ -1,4 +1,4 @@
-package com.example.travellernotebook.ui.trip.views;
+package com.example.travellernotebook.ui.trip;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -22,7 +22,7 @@ import com.example.travellernotebook.domain.Trip;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.base.MainFragment;
 import com.example.travellernotebook.ui.base.views.LocationPickerFragment;
-import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
+import com.example.travellernotebook.factory.TripFactory;
 import com.example.travellernotebook.ui.trip.viewModels.TripViewModel;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -33,7 +33,6 @@ import androidx.annotation.Nullable;
 
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,7 +42,7 @@ import static android.app.Activity.RESULT_OK;
 public class TripFrgment extends MainFragment implements    View.OnClickListener{
 
     @Inject
-    TripViewModelsFactory mTripViewModelsFactory;
+    TripFactory mTripFactory;
     TripViewModel mTripViewModel;
     Calendar mCalendar;
 
@@ -128,7 +127,7 @@ public class TripFrgment extends MainFragment implements    View.OnClickListener
          mCalendar = Calendar.getInstance();
           mMainActivity = ((MainActivity) getActivity());
           mMainActivity.mMainActivityComponent.inject(this);
-          mTripViewModel = new ViewModelProvider(this,mTripViewModelsFactory).get(TripViewModel.class);
+          mTripViewModel = new ViewModelProvider(this, mTripFactory).get(TripViewModel.class);
 
         int month = mCalendar.get(Calendar.MONTH);
         int day = mCalendar.get(Calendar.DAY_OF_MONTH);

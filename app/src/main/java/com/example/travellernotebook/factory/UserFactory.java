@@ -1,4 +1,4 @@
-package com.example.travellernotebook.ui.user;
+package com.example.travellernotebook.factory;
 
 import com.example.travellernotebook.data.UserRepository;
 import com.example.travellernotebook.ui.user.viewModels.UserViewModel;
@@ -7,10 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-public class UserViewModelsFactory implements ViewModelProvider.Factory {
+public class UserFactory implements ViewModelProvider.Factory {
 
     UserRepository mUserRepository;
-    public UserViewModelsFactory(UserRepository _UserRepository) {
+    public UserFactory(UserRepository _UserRepository) {
         mUserRepository = _UserRepository;
     }
 

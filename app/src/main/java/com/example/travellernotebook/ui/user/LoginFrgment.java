@@ -1,4 +1,4 @@
-package com.example.travellernotebook.ui.user.views;
+package com.example.travellernotebook.ui.user;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,8 +14,8 @@ import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.User;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.base.MainFragment;
-import com.example.travellernotebook.ui.trip.views.HomeFrgment;
-import com.example.travellernotebook.ui.user.UserViewModelsFactory;
+import com.example.travellernotebook.ui.trip.HomeFrgment;
+import com.example.travellernotebook.factory.UserFactory;
 import com.example.travellernotebook.ui.user.viewModels.UserViewModel;
 
 import java.util.concurrent.Executor;
@@ -27,7 +27,6 @@ import androidx.annotation.Nullable;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import butterknife.BindView;
@@ -36,7 +35,7 @@ import butterknife.ButterKnife;
 public class LoginFrgment extends MainFragment implements View.OnClickListener {
 
     @Inject
-    UserViewModelsFactory mUserViewModelsFactory;
+    UserFactory mUserFactory;
 
     @BindView(R.id.edtPassword)
     EditText edtPassword;
@@ -62,7 +61,7 @@ public class LoginFrgment extends MainFragment implements View.OnClickListener {
         ButterKnife.bind(this,mView);
         mMainActivity = (MainActivity)getActivity();
         mMainActivity.mMainActivityComponent.inject(this);
-        mUserViewModel = new ViewModelProvider(mMainActivity, mUserViewModelsFactory).get(UserViewModel.class);
+        mUserViewModel = new ViewModelProvider(mMainActivity, mUserFactory).get(UserViewModel.class);
         mUserViewModel.getUserProfile().observe(getViewLifecycleOwner(),new Observer<User>() {
             @Override
             public void onChanged(User user) {

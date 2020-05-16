@@ -1,4 +1,4 @@
-package com.example.travellernotebook.ui.user.views;
+package com.example.travellernotebook.ui.user;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,22 +9,21 @@ import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.User;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.base.MainFragment;
-import com.example.travellernotebook.ui.user.UserViewModelsFactory;
+import com.example.travellernotebook.factory.UserFactory;
 import com.example.travellernotebook.ui.user.viewModels.UserViewModel;
-import com.example.travellernotebook.ui.trip.views.HomeFrgment;
+import com.example.travellernotebook.ui.trip.HomeFrgment;
 
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 public class SplashFrgment extends MainFragment {
 
     @Inject
-    UserViewModelsFactory mUserViewModelsFactory;
+    UserFactory mUserFactory;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -32,7 +31,7 @@ public class SplashFrgment extends MainFragment {
          View mView = inflater.inflate(R.layout.fragment_splash,container,false);
          MainActivity mMainActivity = (MainActivity)getActivity();
         mMainActivity.mMainActivityComponent.inject(this);
-        UserViewModel mUserViewModel = new ViewModelProvider(mMainActivity, mUserViewModelsFactory).get(UserViewModel.class);
+        UserViewModel mUserViewModel = new ViewModelProvider(mMainActivity, mUserFactory).get(UserViewModel.class);
         mUserViewModel.getUserProfile().observe(getViewLifecycleOwner(),new Observer<User>() {
             @Override
             public void onChanged(User user) {

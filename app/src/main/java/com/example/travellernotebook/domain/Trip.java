@@ -110,6 +110,14 @@ public class Trip implements Serializable {
         return mSimpleDateFormat.format(endDate);
     }
 
+    public Date getStartDateDate() {
+        return startDate;
+    }
+
+    public Date getEndDateDate() {
+        return endDate;
+    }
+
     public Double getBudget() {
         return budget;
     }

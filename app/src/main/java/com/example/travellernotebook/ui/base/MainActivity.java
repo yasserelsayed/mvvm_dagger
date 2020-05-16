@@ -19,8 +19,8 @@ import com.example.travellernotebook.di.components.MainActivityComponent;
 import com.example.travellernotebook.di.modules.MainModule;
 import com.example.travellernotebook.domain.App;
 import com.example.travellernotebook.domain.Trip;
-import com.example.travellernotebook.domain.TripLocation;
-import com.example.travellernotebook.ui.user.views.SplashFrgment;
+import com.example.travellernotebook.domain.Location;
+import com.example.travellernotebook.ui.user.SplashFrgment;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     Unbinder unbinder;
     Fragment CurrentFragment;
     public Trip activeTrip;
-    public TripLocation activeTripLocation;
+    public Location activeLocation;
     public MainActivityComponent mMainActivityComponent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,4 +1,4 @@
-package com.example.travellernotebook.ui.trip.views;
+package com.example.travellernotebook.ui.locationActivities;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -13,11 +13,11 @@ import android.widget.ImageView;
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.Activity;
 import com.example.travellernotebook.domain.Quote;
+import com.example.travellernotebook.factory.LocationActivityFactory;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.base.MainFragment;
-import com.example.travellernotebook.ui.trip.TripViewModelsFactory;
-import com.example.travellernotebook.ui.trip.viewModels.ActivityViewModel;
-import com.example.travellernotebook.ui.trip.views.adapters.ActivitesAdapter;
+import com.example.travellernotebook.factory.TripFactory;
+import com.example.travellernotebook.ui.locationActivities.viewModels.ActivityViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -36,7 +36,7 @@ import butterknife.ButterKnife;
 public class ActivitiesListFrgment extends MainFragment {
 
     @Inject
-    TripViewModelsFactory mTripViewModelsFactory;
+    LocationActivityFactory mLocationActivityFactory;
 
     @BindView(R.id.rclItems)
     RecyclerView rclLocations;
@@ -70,9 +70,9 @@ public class ActivitiesListFrgment extends MainFragment {
          ButterKnife.bind(this,mView);
          mMainActivity =((MainActivity) getActivity());
         mMainActivity.mMainActivityComponent.inject(this);
-        mActivityViewModel = new ViewModelProvider(mMainActivity,mTripViewModelsFactory).get(ActivityViewModel.class);
-        if(mMainActivity.activeTripLocation!=null) {
-            mActivityViewModel.getAllActivities(mMainActivity.activeTripLocation.getId()).observe(getViewLifecycleOwner(), new Observer<List<Activity>>() {
+        mActivityViewModel = new ViewModelProvider(mMainActivity, mLocationActivityFactory).get(ActivityViewModel.class);
+        if(mMainActivity.activeLocation !=null) {
+            mActivityViewModel.getAllActivities(mMainActivity.activeLocation.getId()).observe(getViewLifecycleOwner(), new Observer<List<Activity>>() {
                 @Override
                 public void onChanged(List<Activity> activities) {
                     ActivitesAdapter mActivitesAdapter = new ActivitesAdapter(activities,ActivitiesListFrgment.this);
@@ -107,7 +107,7 @@ public class ActivitiesListFrgment extends MainFragment {
                 else {
                     Quote mQuote = new Quote();
                     mQuote.setQuote(quote);
-                    mQuote.setLocation(mMainActivity.activeTripLocation.getId());
+                    mQuote.setLocation(mMainActivity.activeLocation.getId());
                     Object  mObject = edtAddQuote.getTag().toString();
                     if(mObject!=null) {
                        int parentID = Integer.parseInt(mObject.toString());
