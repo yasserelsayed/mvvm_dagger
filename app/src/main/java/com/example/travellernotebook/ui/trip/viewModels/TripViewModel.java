@@ -22,6 +22,10 @@ public class TripViewModel extends ViewModel {
         mTripRepository.addTrip(mTrip);
     }
 
+    public Boolean shareTrio(Trip mTrip){
+       return mTripRepository.shareTrip(mTrip);
+    }
+
     public void removeTrip(Trip mTrip){
         mTripRepository.removeTrip(mTrip);
     }
@@ -30,5 +34,8 @@ public class TripViewModel extends ViewModel {
         return mTripRepository.getAll();
     }
 
+    public LiveData<List<Trip>> getSharedTrips(){
+        return mTripRepository.getSharedTrips();
+    }
 
 }

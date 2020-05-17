@@ -8,7 +8,14 @@
     android:layout_height="match_parent"
     android:padding="@dimen/screen_padding">
 
-
+    <ImageView
+        android:id="@+id/imgBack"
+        android:layout_width="@dimen/small_button_size"
+        android:layout_height="@dimen/small_button_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/imagepicker_ic_back"
+        tools:srcCompat="@drawable/imagepicker_ic_back" />
     <TextView
         android:textStyle="bold"
         app:layout_constraintVertical_bias=".8"

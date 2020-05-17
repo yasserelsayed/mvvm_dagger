@@ -50,7 +50,7 @@ public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.Adap
             @Override
             public void onClick(View view) {
                 mMainActivity.activeLocation = mLocationp;
-                mMainActivity.transitionToFragment(new LocationActivitiesFrgment());
+                mMainActivity.transitionToFragment(new ActivitiesHomeFrgment());
             }
         });
         if(mLocationp.getMainPhoto()!=null) {

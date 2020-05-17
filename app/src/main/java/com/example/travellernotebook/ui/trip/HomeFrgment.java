@@ -87,6 +87,13 @@ public class HomeFrgment extends Fragment{
             }
         });
 
+        mTripViewModel.getSharedTrips().observe(getViewLifecycleOwner(), new Observer<List<Trip>>() {
+            @Override
+            public void onChanged(List<Trip> trips) {
+                double totalBudget = 0;
+            }
+        });
+
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,6 +119,9 @@ public class HomeFrgment extends Fragment{
             case android.R.id.home : {
                 //Title bar back press triggers onBackPressed()
                 mMainActivity.onBackPressed();
+                return true;
+            }  case R.id.mnuSharedTrips : {
+                mMainActivity.transitionToFragment(new SharedTripsListFrgment());
                 return true;
             }
             default:

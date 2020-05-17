@@ -74,6 +74,48 @@ public class Trip implements Serializable {
     String locationName;
     String mainPhoto;
 
+
+
+
+    /// for shared trips
+    String userName;
+    String email;
+    String phone;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+    /// for shared trips
+
+    public String getTripNameAttributeName(){
+        return "tripName";
+    }
+    public String getStartDateAttributeName(){
+        return "startDate";
+    }
+    public String getEndDateAttributeName(){
+        return "endDate";
+    }
+
     public void setLocationName(String locationName) {
         this.locationName = locationName;
     }

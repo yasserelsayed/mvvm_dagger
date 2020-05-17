@@ -30,7 +30,7 @@ import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LocationActivitiesFrgment extends MainFragment {
+public class ActivitiesHomeFrgment extends MainFragment {
 
     MainActivity mMainActivity;
     @BindView(R.id.pager)

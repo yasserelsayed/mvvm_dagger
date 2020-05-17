@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.Activity;
 import com.example.travellernotebook.factory.LocationActivityFactory;
@@ -32,6 +33,9 @@ public class ActivityFrgment extends MainFragment implements    View.OnClickList
     EditText edtActivity;
     @BindView(R.id.btnSubmit)
     Button btnSubmit;
+    @BindView(R.id.imgBack)
+    ImageView imgBack;
+
     MainActivity mMainActivity;
     Activity mActivity;
     public ActivityFrgment(){
@@ -54,6 +58,7 @@ public class ActivityFrgment extends MainFragment implements    View.OnClickList
         mMainActivity.mMainActivityComponent.inject(this);
         mActivityViewModel = new ViewModelProvider(this, mLocationActivityFactory).get(ActivityViewModel.class);
         btnSubmit.setOnClickListener(this);
+        imgBack.setOnClickListener(this);
         if(mMainActivity.activeLocation !=null)
             mActivity.setParent(mMainActivity.activeLocation.getId());
 
@@ -75,6 +80,11 @@ public class ActivityFrgment extends MainFragment implements    View.OnClickList
                 }
                 break;
             }
+            case R.id.imgBack:{
+                mMainActivity.onBackPressed();
+                break;
+            }
         }
+
     }
 }

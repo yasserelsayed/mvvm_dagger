@@ -8,10 +8,12 @@
     android:id="@+id/constContainer">
 
     <ImageView
+        android:padding="@dimen/small_padding"
         android:id="@+id/imgTripMainPic"
         android:layout_width="@dimen/image_size_small"
         android:layout_height="@dimen/image_size_small"
-        android:background="@drawable/button_background"
+        android:src="@drawable/travel"
+        android:background="@drawable/rounded_border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +37,7 @@
             android:textColor="@android:color/white"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/tagFrom"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
 
         <TextView
@@ -46,53 +48,54 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-            app:layout_constraintStart_toStartOf="@+id/txtFrom"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tagTo" />
 
         <TextView
-            android:id="@+id/txtBudget"
+            android:id="@+id/txtUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$"
+            android:text=""
             android:textColor="@android:color/white"
             android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/txtPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_upcoming"
-            android:textColor="@android:color/white"
+            android:text=""
             android:textSize="9sp"
+            android:textColor="@color/colorPrimaryDark"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/txtTripName"
+        android:textColor="@color/colorPrimaryDark"
+        android:id="@+id/txtEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text=""
-        android:textColor="@color/colorPrimary"
-        android:textSize="13sp"
+        android:textSize="11sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgTripMainPic"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <TextView
-        android:visibility="gone"
-        android:textStyle="italic"
-        android:id="@+id/txtShare"
+        android:layout_marginEnd="@dimen/small_padding"
+        android:id="@+id/txtTripName"
         android:textColor="@color/colorPrimary"
         android:textSize="12sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/small_padding"
-        android:text="@string/txt_share"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        android:layout_marginRight="@dimen/small_padding" />
 
 
 

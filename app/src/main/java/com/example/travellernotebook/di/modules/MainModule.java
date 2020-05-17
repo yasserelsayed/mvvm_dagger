@@ -21,8 +21,8 @@ public class MainModule {
 
     @Provides
     @MainScope
-    public TripRepository provideTripRepository(FirebaseFirestore mFirebaseFirestore,AppDatabase mAppDatabase) {
-        return new TripRepository(mFirebaseFirestore,mAppDatabase);
+    public TripRepository provideTripRepository(FirebaseFirestore mFirebaseFirestore,AppDatabase mAppDatabase,UserPreference mUserPreference) {
+        return new TripRepository(mFirebaseFirestore,mAppDatabase,mUserPreference);
     }
 
     @Provides
@@ -46,14 +46,14 @@ public class MainModule {
 
     @Provides
     @MainScope
-    public UserPreference provideUserPreference() {
-        return new UserPreference();
+    public UserPreference provideUserPreference(Context m) {
+        return new UserPreference(m);
     }
 
     @Provides
     @MainScope
-    public UserRepository provideAuthenticationRepository(Context mContext, UserPreference mUserPreference,AppDatabase mAppDatabase) {
-        return new UserRepository(mContext,mUserPreference,mAppDatabase);
+    public UserRepository provideAuthenticationRepository(UserPreference mUserPreference,AppDatabase mAppDatabase) {
+        return new UserRepository(mUserPreference,mAppDatabase);
     }
 
 

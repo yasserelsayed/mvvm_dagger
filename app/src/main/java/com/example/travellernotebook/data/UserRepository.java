@@ -1,8 +1,5 @@
 package com.example.travellernotebook.data;
-
-import android.content.Context;
 import android.os.AsyncTask;
-
 import com.example.travellernotebook.data.database.AppDatabase;
 import com.example.travellernotebook.data.preferences.UserPreference;
 import com.example.travellernotebook.domain.User;
@@ -13,43 +10,39 @@ import androidx.lifecycle.MutableLiveData;
 
 public class UserRepository {
     UserPreference mUserPreference;
-    Context mContext;
-
     MutableLiveData<User> userDatasource;
     AppDatabase mAppDatabase;
 
-    public UserRepository(Context mContext,
-                          UserPreference mUserPreference, AppDatabase mAppDatabase) {
+    public UserRepository(UserPreference mUserPreference, AppDatabase mAppDatabase) {
         this.mUserPreference = mUserPreference;
-        this.mContext = mContext;
         userDatasource = new MutableLiveData<>();
         this.mAppDatabase = mAppDatabase;
     }
 
     public void updateUserProfile(User mUser){
          if(validateUserInfo(mUser.getProfilePhoto()))
-                 mUserPreference.setUserInfo(mContext, Constants.KeyUserPhoto,mUser.getProfilePhoto());
-         else    mUserPreference.setUserInfo(mContext, Constants.KeyUserPhoto,"");
+                 mUserPreference.setUserInfo(Constants.KeyUserPhoto,mUser.getProfilePhoto());
+         else    mUserPreference.setUserInfo(Constants.KeyUserPhoto,"");
         if(validateUserInfo(mUser.getEmail()))
-            mUserPreference.setUserInfo(mContext, Constants.KeyEmail,mUser.getEmail());
-        else mUserPreference.setUserInfo(mContext, Constants.KeyEmail,"");
+            mUserPreference.setUserInfo(Constants.KeyEmail,mUser.getEmail());
+        else mUserPreference.setUserInfo(Constants.KeyEmail,"");
         if(validateUserInfo(mUser.getPhone()))
-            mUserPreference.setUserInfo(mContext, Constants.KeyPhone,mUser.getPhone());
-        else mUserPreference.setUserInfo(mContext, Constants.KeyPhone,"");
+            mUserPreference.setUserInfo(Constants.KeyPhone,mUser.getPhone());
+        else mUserPreference.setUserInfo(Constants.KeyPhone,"");
         if(validateUserInfo(mUser.getPassword()))
-            mUserPreference.setUserInfo(mContext, Constants.KeyPassword,mUser.getPassword());
-        else mUserPreference.setUserInfo(mContext, Constants.KeyPassword,"");
+            mUserPreference.setUserInfo(Constants.KeyPassword,mUser.getPassword());
+        else mUserPreference.setUserInfo(Constants.KeyPassword,"");
         if(validateUserInfo(mUser.getUserName()))
-            mUserPreference.setUserInfo(mContext, Constants.KeyUserName,mUser.getUserName());
-        else mUserPreference.setUserInfo(mContext, Constants.KeyUserName,"");
+            mUserPreference.setUserInfo(Constants.KeyUserName,mUser.getUserName());
+        else mUserPreference.setUserInfo(Constants.KeyUserName,"");
     }
 
     public void resetApp(){
-        mUserPreference.setUserInfo(mContext, Constants.KeyUserPhoto,"");
-        mUserPreference.setUserInfo(mContext, Constants.KeyEmail,"");
-        mUserPreference.setUserInfo(mContext, Constants.KeyPhone,"");
-        mUserPreference.setUserInfo(mContext, Constants.KeyPassword,"");
-        mUserPreference.setUserInfo(mContext, Constants.KeyUserName,"");
+        mUserPreference.setUserInfo(Constants.KeyUserPhoto,"");
+        mUserPreference.setUserInfo(Constants.KeyEmail,"");
+        mUserPreference.setUserInfo(Constants.KeyPhone,"");
+        mUserPreference.setUserInfo(Constants.KeyPassword,"");
+        mUserPreference.setUserInfo(Constants.KeyUserName,"");
 
         new AsyncTask<Void,Void,Void>(){
             @Override
@@ -67,11 +60,11 @@ public class UserRepository {
 
     public LiveData<User> getUserProfile(){
         User mUser = new User();
-        mUser.setPassword(mUserPreference.getUserInfo(mContext,Constants.KeyPassword));
-        mUser.setUserName(mUserPreference.getUserInfo(mContext,Constants.KeyUserName));
-        mUser.setPhone(mUserPreference.getUserInfo(mContext,Constants.KeyPhone));
-        mUser.setEmail(mUserPreference.getUserInfo(mContext,Constants.KeyEmail));
-        mUser.setProfilePhoto(mUserPreference.getUserInfo(mContext,Constants.KeyUserPhoto));
+        mUser.setPassword(mUserPreference.getUserInfo(Constants.KeyPassword));
+        mUser.setUserName(mUserPreference.getUserInfo(Constants.KeyUserName));
+        mUser.setPhone(mUserPreference.getUserInfo(Constants.KeyPhone));
+        mUser.setEmail(mUserPreference.getUserInfo(Constants.KeyEmail));
+        mUser.setProfilePhoto(mUserPreference.getUserInfo(Constants.KeyUserPhoto));
         userDatasource.setValue(mUser);
         return userDatasource;
     }

@@ -16,7 +16,6 @@ import com.example.travellernotebook.domain.Quote;
 import com.example.travellernotebook.factory.LocationActivityFactory;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.base.MainFragment;
-import com.example.travellernotebook.factory.TripFactory;
 import com.example.travellernotebook.ui.locationActivities.viewModels.ActivityViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -90,15 +89,18 @@ public class ActivitiesListFrgment extends MainFragment {
         });
 
         imgClose.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View view) {
                 frmAddQuote.setVisibility(View.GONE);
+                btnAdd.setVisibility(View.VISIBLE);
                 edtAddQuote.setTag(null);
                 edtAddQuote.setText(null);
             }
         });
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View view) {
               String quote =  edtAddQuote.getText().toString();
@@ -118,7 +120,7 @@ public class ActivitiesListFrgment extends MainFragment {
                         edtAddQuote.setTag(null);
                         edtAddQuote.requestFocus();
                         frmAddQuote.setVisibility(View.GONE);
-
+                        btnAdd.setVisibility(View.VISIBLE);
                     }
                 }
 
@@ -129,8 +131,11 @@ public class ActivitiesListFrgment extends MainFragment {
     }
 
 
+    @SuppressLint("RestrictedApi")
     public void showAddQuoteEditor(int activityId){
         frmAddQuote.setVisibility(View.VISIBLE);
         edtAddQuote.setTag(activityId);
+
+        btnAdd.setVisibility(View.GONE);
     }
 }

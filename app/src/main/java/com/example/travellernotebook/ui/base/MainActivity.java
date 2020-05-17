@@ -48,29 +48,6 @@ public class MainActivity extends AppCompatActivity {
                 .appComponent(mAppComponent)
                 .mainModule(new MainModule())
                 .build();
-
-//        FirebaseFirestore mFirebaseFirestore = FirebaseFirestore.getInstance();
-//        Map<String, Object> user = new HashMap<>();
-//        user.put("first", "Ada");
-//        user.put("last", "Lovelace");
-//        user.put("born", 1815);
-//
-//// Add a new document with a generated ID
-//        mFirebaseFirestore.collection("trips")
-//                .add(user)
-//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                    @Override
-//                    public void onSuccess(DocumentReference documentReference) {
-//                        Log.d("", "DocumentSnapshot added with ID: " + documentReference.getId());
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.w("", "Error adding document", e);
-//                    }
-//                });
-
     }
 
     public void transitionToFragment(Fragment mFragment)

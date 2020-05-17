@@ -19,8 +19,8 @@ public interface TripDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Tripdb mTrip);
 
-    @Query("SELECT * FROM trip WHERE dbid = :tripId")
-    Tripdb getRecord(String tripId);
+    @Query("UPDATE trip SET backend_id = :bid WHERE dbid = :tripId")
+    void updateTipBackendid(int tripId,String bid);
 
     @Delete
     void delete(Tripdb mTrip);

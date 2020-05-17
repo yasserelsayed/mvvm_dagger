@@ -31,6 +31,9 @@
     <string name="txt_location_activities">Location Activities</string>
     <string name="txt_login">LOGIN</string>
     <string name="msg_login_with_biometric">Log in using your biometric credential</string>
+    <string name="txt_share">SHARE</string>
+    <string name="msg_upcoming_trips">Check travellers upcoming trips</string>
+    <string name="txt_upcoming_trips">Upcoming Trips</string>
 
     <string name="maps_api_key">AIzaSyCfAiZPLV5twQ8NE-tfRtIQIozOLqjZmnE</string>
 </resources>
