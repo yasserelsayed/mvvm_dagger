@@ -27,13 +27,15 @@
     <string name="msg_this_field_required">this field required</string>
     <string name="msg_auth_error">authentication error</string>
     <string name="msg_location_budget_invalid">Location budget has to be less than trip budget </string>
+    <string name="msg_profile_info_missing_error">Please fill profile info before sharing (username,email,phone)</string>
     <string name="msg_dates_error">End date has to be after start date</string>
     <string name="txt_location_activities">Location Activities</string>
     <string name="txt_login">LOGIN</string>
     <string name="msg_login_with_biometric">Log in using your biometric credential</string>
     <string name="txt_share">SHARE</string>
     <string name="msg_upcoming_trips">Check travellers upcoming trips</string>
+    <string name="msg_traveller_shared_trip">Traveller shared a new trip</string>
     <string name="txt_upcoming_trips">Upcoming Trips</string>
-
+    <string name="txt_close">Close</string>
     <string name="maps_api_key">AIzaSyCfAiZPLV5twQ8NE-tfRtIQIozOLqjZmnE</string>
 </resources>

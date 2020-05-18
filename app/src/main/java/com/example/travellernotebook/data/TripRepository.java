@@ -1,6 +1,5 @@
 package com.example.travellernotebook.data;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -25,8 +24,11 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import static com.android.volley.VolleyLog.TAG;
 
 public class TripRepository {
 
@@ -46,6 +48,7 @@ public class TripRepository {
         this.mUserPreference = mUserPreference;
         this.mSimpleDateFormat= new SimpleDateFormat("dd/MM/yyyy");
         mToday = new Date();
+
     }
 
     public void addTrip(Trip mTrip){
@@ -59,6 +62,10 @@ public class TripRepository {
     }
 
     public void removeTrip(Trip mTrip){
+
+        if(mTrip.getBackendID()!=null && !mTrip.getBackendID().isEmpty())
+         mFirebaseFirestore.collection(Constants.KeyFirebaseFirestoreDocument).document(mTrip.getBackendID()).delete();
+
         new AsyncTask<Void,Void,Void>(){
             @Override
             protected Void doInBackground(Void... voids) {
@@ -87,7 +94,7 @@ public class TripRepository {
             trip.put(Constants.KeyEmail, email);
             trip.put(Constants.KeyPhone,phone);
 
-                    mFirebaseFirestore.collection("trips")
+                    mFirebaseFirestore.collection(Constants.KeyFirebaseFirestoreDocument)
                             .add(trip)
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
@@ -114,7 +121,7 @@ public class TripRepository {
     }
 
     public MutableLiveData<List<Trip>> getSharedTrips(){
-            mFirebaseFirestore.collection("trips")
+            mFirebaseFirestore.collection(Constants.KeyFirebaseFirestoreDocument)
                     .get()
                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
@@ -137,7 +144,7 @@ public class TripRepository {
                                 mTrip.setUserName(mDocumentSnapshot.get(Constants.KeyUserName).toString());
                                 mTrip.setEmail(mDocumentSnapshot.get(Constants.KeyEmail).toString());
                                 mTrip.setPhone(mDocumentSnapshot.get(Constants.KeyPhone).toString());
-                                if (mTrip.getStartDateDate()!=null && mToday.compareTo(mTrip.getStartDateDate()) > 0)
+                                if (mTrip.getStartDateDate()!=null && mTrip.getStartDateDate().compareTo(mToday) > 0)
                                 lstTrips.add(mTrip);
                             }
                             sharedTripData.setValue(lstTrips);

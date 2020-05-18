@@ -15,6 +15,7 @@ import com.example.travellernotebook.domain.Trip;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.locationActivities.LocationsHomeFrgment;
 import com.example.travellernotebook.ui.trip.viewModels.TripViewModel;
+import com.example.travellernotebook.ui.user.UserFrgment;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -79,7 +80,10 @@ public class TripsAdapter extends RecyclerView.Adapter<TripsAdapter.AdapterHolde
                 @Override
                 public void onClick(View view) {
                  Boolean valid =  mTripViewModel.shareTrio(mTrip);
-
+                 if(!valid){
+                     mMainActivity.showMessagePopup(mMainActivity.getString(R.string.msg_profile_info_missing_error));
+                     mMainActivity.transitionToFragment(new UserFrgment());
+                 }
                 }
             });
         }
