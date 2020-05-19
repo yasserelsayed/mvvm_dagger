@@ -1,5 +1,7 @@
 package com.example.travellernotebook.ui.trip;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.travellernotebook.R;
 import com.example.travellernotebook.domain.Trip;
+import com.example.travellernotebook.service.SavingsWidget;
 import com.example.travellernotebook.ui.base.MainActivity;
 import com.example.travellernotebook.ui.base.MainFragment;
 import com.example.travellernotebook.ui.base.views.PagerAdapter;
@@ -57,7 +60,7 @@ public class HomeFrgment extends Fragment{
          super.onCreateView(inflater, container, savedInstanceState);
          View mView = inflater.inflate(R.layout.fragment_home,container,false);
          ButterKnife.bind(this,mView);
-          mMainActivity = ((MainActivity) getActivity());
+         mMainActivity = ((MainActivity) getActivity());
         Toolbar myToolbar = (Toolbar) mView.findViewById(R.id.toolbar);
         mMainActivity.setSupportActionBar(myToolbar);
         mMainActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -84,13 +87,9 @@ public class HomeFrgment extends Fragment{
                     if(mTrip.isUpcoming())
                        totalBudget += mTrip.getBudget();
                 txtBudget.setText(totalBudget + " $");
-            }
-        });
-
-        mTripViewModel.getSharedTrips().observe(getViewLifecycleOwner(), new Observer<List<Trip>>() {
-            @Override
-            public void onChanged(List<Trip> trips) {
-                double totalBudget = 0;
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(mMainActivity);
+                int appWidgetIds[] = appWidgetManager.getAppWidgetIds(new ComponentName(mMainActivity, SavingsWidget.class));
+                SavingsWidget.triggerWidgetUpdate(mMainActivity,appWidgetManager,appWidgetIds);
             }
         });
 
@@ -119,9 +118,6 @@ public class HomeFrgment extends Fragment{
             case android.R.id.home : {
                 //Title bar back press triggers onBackPressed()
                 mMainActivity.onBackPressed();
-                return true;
-            }  case R.id.mnuSharedTrips : {
-                mMainActivity.transitionToFragment(new SharedTripsListFrgment());
                 return true;
             }
             default:

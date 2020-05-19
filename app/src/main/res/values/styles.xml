@@ -26,6 +26,7 @@
         <item name="android:layout_height">@dimen/edit_height</item>
         <item name="android:layout_width">@dimen/edit_width</item>
     </style>
+
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/colorPrimary</item>
     </style>

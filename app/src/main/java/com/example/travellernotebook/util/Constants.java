@@ -8,7 +8,11 @@ public interface Constants {
     String KeyEmail = "Email";
     String KeyPassword = "Password";
     String KeyPhone = "Phone";
+    String KeySavings = "Savings";
     String KeyToSharedTrips = "ToSharedTrips";
+    String KeyToSavings = "ToSavings";
+    String KeyToScreen = "ToScreen";
+
 
     String NOTIFICATION_CHANNEL_ID = "NoteBook";
     String KeyFirebaseFirestoreDocument = "trips";

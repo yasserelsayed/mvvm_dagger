@@ -5,6 +5,7 @@ import com.example.travellernotebook.di.scope.MainScope;
 import com.example.travellernotebook.ui.locationActivities.ActivitiesHomeFrgment;
 import com.example.travellernotebook.ui.trip.SharedTripsListFrgment;
 import com.example.travellernotebook.ui.user.LoginFrgment;
+import com.example.travellernotebook.ui.user.SavingsFrgment;
 import com.example.travellernotebook.ui.user.SplashFrgment;
 import com.example.travellernotebook.ui.user.UserFrgment;
 import com.example.travellernotebook.ui.locationActivities.ActivitiesListFrgment;
@@ -36,5 +37,5 @@ public interface MainActivityComponent {
     public void inject(UserFrgment mUserFrgment);
     public void inject(SplashFrgment mSplashFrgment);
     public void inject(LoginFrgment mLoginFrgment);
-
+    public void inject(SavingsFrgment mSavingsFrgment);
 }

@@ -37,6 +37,14 @@ public class UserRepository {
         else mUserPreference.setUserInfo(Constants.KeyUserName,"");
     }
 
+    public void setUserSavings(String savings){
+        mUserPreference.setUserInfo(Constants.KeySavings,savings);
+    }
+
+    public String getUserSavings(){
+      return   mUserPreference.getUserInfo(Constants.KeySavings);
+    }
+
     public void resetApp(){
         mUserPreference.setUserInfo(Constants.KeyUserPhoto,"");
         mUserPreference.setUserInfo(Constants.KeyEmail,"");

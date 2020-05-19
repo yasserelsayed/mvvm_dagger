@@ -11,13 +11,13 @@ public class UserPreference {
     }
 
     public String getUserInfo(String key){
-       SharedPreferences mPreferences = mContext.getSharedPreferences(key,0);
+       SharedPreferences mPreferences = mContext.getSharedPreferences(mContext.getPackageName(),0);
        return mPreferences.getString(key,"");
     }
 
     public void  setUserInfo(String key,String value)
     {
-        SharedPreferences mPreferences = mContext.getSharedPreferences(key,0);
+        SharedPreferences mPreferences = mContext.getSharedPreferences(mContext.getPackageName(),0);
         SharedPreferences.Editor mEdit = mPreferences.edit();
         mEdit.putString(key,value);
         mEdit.commit();

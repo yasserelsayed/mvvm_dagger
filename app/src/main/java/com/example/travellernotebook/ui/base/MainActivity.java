@@ -35,6 +35,7 @@ import com.example.travellernotebook.domain.App;
 import com.example.travellernotebook.domain.Trip;
 import com.example.travellernotebook.domain.Location;
 import com.example.travellernotebook.ui.trip.SharedTripsListFrgment;
+import com.example.travellernotebook.ui.user.SavingsFrgment;
 import com.example.travellernotebook.ui.user.SplashFrgment;
 import com.example.travellernotebook.util.Constants;
 import com.google.android.libraries.places.api.Places;
@@ -92,10 +93,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        String toSharedTrips = getIntent().getStringExtra(Constants.KeyToSharedTrips);
-        if(toSharedTrips==null)
-              transitionToFragment(new SplashFrgment());
-        else  transitionToFragment(new SharedTripsListFrgment());
+        String toScreen = getIntent().getStringExtra(Constants.KeyToScreen);
+        if(toScreen!=null && toScreen.equals(Constants.KeyToSharedTrips))
+              transitionToFragment(new SharedTripsListFrgment());
+       else if(toScreen!=null && toScreen.equals(Constants.KeyToSavings))
+              transitionToFragment(new SavingsFrgment());
+        else  transitionToFragment(new SplashFrgment());
     }
 
     public void transitionToFragment(Fragment mFragment)
@@ -137,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
     private void dispalyNotification(String message) {
         NotificationCompat.Builder mBuilder = null;
         Intent mIntent = new Intent(this, MainActivity.class);
-        mIntent.putExtra(Constants.KeyToSharedTrips,Constants.KeyToSharedTrips);
+        mIntent.putExtra(Constants.KeyToScreen,Constants.KeyToSharedTrips);
         mIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, mIntent,
                 PendingIntent.FLAG_ONE_SHOT);

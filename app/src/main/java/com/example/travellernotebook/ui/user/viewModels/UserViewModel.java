@@ -22,4 +22,12 @@ public class UserViewModel extends ViewModel {
     public void resetApp(){
         mUserRepository.resetApp();
     }
+
+    public String getUserSavings(){
+      return   mUserRepository.getUserSavings();
+    }
+
+    public void setUserSavings(String savings){
+           mUserRepository.setUserSavings(savings);
+    }
 }
