@@ -9,6 +9,7 @@
     android:padding="@dimen/screen_padding">
 
     <ImageView
+        android:contentDescription="@string/desc_back_button"
         android:id="@+id/imgBack"
         android:layout_width="@dimen/small_button_size"
         android:layout_height="@dimen/small_button_size"
@@ -18,6 +19,7 @@
         tools:srcCompat="@drawable/imagepicker_ic_back" />
 
     <ImageView
+        android:contentDescription="@string/desc_upload_user_profile_image"
         app:layout_constraintVertical_bias=".3"
         android:id="@+id/imgProfilePhoto"
         android:layout_width="@dimen/image_size"

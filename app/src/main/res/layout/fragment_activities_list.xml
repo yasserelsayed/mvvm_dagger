@@ -19,6 +19,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:contentDescription="@string/desc_close_popup"
             android:id="@+id/imgClose"
             android:layout_width="@dimen/small_button_size"
             android:layout_height="@dimen/small_button_size"

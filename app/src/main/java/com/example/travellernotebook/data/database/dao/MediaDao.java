@@ -20,9 +20,6 @@ public interface MediaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Mediadb mMediadb);
 
-    @Query("SELECT * FROM media WHERE dbid = :mediaId")
-    Activitydb getRecord(String mediaId);
-
     @Delete
     void delete(Mediadb mMedia);
 

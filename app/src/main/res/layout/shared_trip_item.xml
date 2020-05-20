@@ -8,6 +8,7 @@
     android:id="@+id/constContainer">
 
     <ImageView
+        android:contentDescription="@string/desc_trip_main_image"
         android:padding="@dimen/small_padding"
         android:id="@+id/imgTripMainPic"
         android:layout_width="@dimen/image_size_small"
@@ -36,7 +37,6 @@
             android:text=""
             android:textColor="@android:color/white"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tagFrom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
 
@@ -48,8 +48,7 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tagTo" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/txtUserName"

@@ -8,6 +8,7 @@
     android:padding="@dimen/screen_padding">
 
     <ImageView
+        android:contentDescription="@null"
         app:layout_constraintVertical_bias=".2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,6 +33,7 @@
         app:layout_constraintVertical_bias=".6" />
 
     <ImageView
+        android:contentDescription="@string/desc_scan_finger_print"
         android:visibility="gone"
         app:layout_constraintVertical_bias=".2"
         android:id="@+id/imgFingerPrint"

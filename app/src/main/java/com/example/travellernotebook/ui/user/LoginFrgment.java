@@ -81,7 +81,7 @@ public class LoginFrgment extends MainFragment implements View.OnClickListener {
                 public void onAuthenticationError(int errorCode,
                                                   @NonNull CharSequence errString) {
                     super.onAuthenticationError(errorCode, errString);
-                    Toast.makeText(mMainActivity, "Authentication error: " + errString, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mMainActivity, getString(R.string.txt_auth_error)+ errString, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -93,7 +93,7 @@ public class LoginFrgment extends MainFragment implements View.OnClickListener {
                 @Override
                 public void onAuthenticationFailed() {
                     super.onAuthenticationFailed();
-                    Toast.makeText(mMainActivity, "Authentication failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mMainActivity, getString(R.string.txt_auth_failed), Toast.LENGTH_SHORT).show();
                 }
             });
         }

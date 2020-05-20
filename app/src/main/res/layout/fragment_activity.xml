@@ -9,6 +9,7 @@
     android:padding="@dimen/screen_padding">
 
     <ImageView
+        android:contentDescription="@string/desc_back_button"
         android:id="@+id/imgBack"
         android:layout_width="@dimen/small_button_size"
         android:layout_height="@dimen/small_button_size"

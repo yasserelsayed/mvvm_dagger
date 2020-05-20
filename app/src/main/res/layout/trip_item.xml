@@ -9,6 +9,7 @@
     android:id="@+id/constContainer">
 
     <ImageView
+        android:contentDescription="@string/desc_trip_main_image"
         android:id="@+id/imgTripMainPic"
         android:layout_width="@dimen/image_size_small"
         android:layout_height="@dimen/image_size_small"
@@ -22,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/default_margin"
-        android:text=" "
+        android:text=""
         android:textColor="@color/colorPrimary"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/imgTripMainPic"

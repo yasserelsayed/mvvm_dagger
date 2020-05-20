@@ -40,4 +40,18 @@
     <string name="txt_upcoming_trips">Upcoming Trips</string>
     <string name="txt_close">Close</string>
     <string name="maps_api_key">AIzaSyCfAiZPLV5twQ8NE-tfRtIQIozOLqjZmnE</string>
+    <string name="txt_auth_error">Authentication error</string>
+    <string name="txt_auth_failed">Authentication failed</string>
+
+    <!-- content Descriptions -->
+    <string name="desc_close_popup">Close add activity quote popup</string>
+    <string name="desc_upload_user_profile_image">Upload user profile image</string>
+    <string name="desc_back_button">Back button to move back to previous screen</string>
+    <string name="desc_scan_finger_print">Scan finger print to login</string>
+    <string name="desc_trip_main_image">Trip main image represent trip main location image</string>
+    <string name="desc_delete_uploaded_location_image">Delete uploaded location image</string>
+    <string name="desc_uploaded_location_image">Uploaded location image</string>
+    <string name="desc_location_main_image">Location main image represent main location image</string>
+    <string name="desc_upload_trip_main">Upload trip main image</string>
+    <string name="desc_upload_location_main">Upload location main image</string>
 </resources>
